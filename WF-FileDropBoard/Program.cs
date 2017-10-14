@@ -15,7 +15,7 @@ namespace WF_FileDropBoard
         static void Main()
         {
             //bool IsControl
-            List<Form1.FileData> FileListS = new List<Form1.FileData>();
+            //List<Form1.FileData> FileListS = new List<Form1.FileData>;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -1,4 +1,6 @@
-﻿namespace WF_FileDropBoard
+﻿using System.Collections.Generic;
+
+namespace WF_FileDropBoard
 {
     partial class MainBox
     {
@@ -38,9 +40,12 @@
             this.DragProductionTimer = new System.Windows.Forms.Timer(this.components);
             this.TileDragTimer = new System.Windows.Forms.Timer(this.components);
             this.DragUpdateTimer = new System.Windows.Forms.Timer(this.components);
+            this.InfoProductionTimer = new System.Windows.Forms.Timer(this.components);
+            this.InfoCloseTimer = new System.Windows.Forms.Timer(this.components);
             this.GetPreviewWorker = new System.ComponentModel.BackgroundWorker();
             this.MainGRPBox = new System.Windows.Forms.PictureBox();
             this.DisposeBox = new System.Windows.Forms.PictureBox();
+            this.NotiTLP = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.MenuPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainGRPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DisposeBox)).BeginInit();
@@ -49,7 +54,7 @@
             // DDLabel
             // 
             this.DDLabel.AutoSize = true;
-            this.DDLabel.BackColor = System.Drawing.Color.White;
+            this.DDLabel.BackColor = System.Drawing.Color.Transparent;
             this.DDLabel.Cursor = System.Windows.Forms.Cursors.Default;
             this.DDLabel.Location = new System.Drawing.Point(89, 116);
             this.DDLabel.Name = "DDLabel";
@@ -65,7 +70,7 @@
             // 
             // MenuPic
             // 
-            this.MenuPic.BackColor = System.Drawing.Color.White;
+            this.MenuPic.BackColor = System.Drawing.Color.Transparent;
             this.MenuPic.Location = new System.Drawing.Point(12, 12);
             this.MenuPic.Name = "MenuPic";
             this.MenuPic.Size = new System.Drawing.Size(70, 70);
@@ -97,8 +102,18 @@
             // 
             // DragUpdateTimer
             // 
-            this.DragUpdateTimer.Interval = 16;
+            this.DragUpdateTimer.Interval = 15;
             this.DragUpdateTimer.Tick += new System.EventHandler(this.DragUpdateTimer_Tick);
+            // 
+            // InfoProductionTimer
+            // 
+            this.InfoProductionTimer.Interval = 15;
+            this.InfoProductionTimer.Tick += new System.EventHandler(this.InfoProductionTimer_Tick);
+            // 
+            // InfoCloseTimer
+            // 
+            this.InfoCloseTimer.Interval = 10000;
+            this.InfoCloseTimer.Tick += new System.EventHandler(this.InfoCloseTimer_Tick);
             // 
             // GetPreviewWorker
             // 
@@ -122,6 +137,7 @@
             // 
             // DisposeBox
             // 
+            this.DisposeBox.BackColor = System.Drawing.Color.Transparent;
             this.DisposeBox.Cursor = System.Windows.Forms.Cursors.Default;
             this.DisposeBox.Image = ((System.Drawing.Image)(resources.GetObject("DisposeBox.Image")));
             this.DisposeBox.Location = new System.Drawing.Point(64, 159);
@@ -132,12 +148,26 @@
             this.DisposeBox.TabStop = false;
             this.DisposeBox.Visible = false;
             // 
+            // NotiTLP
+            // 
+            this.NotiTLP.ColumnCount = 2;
+            this.NotiTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.NotiTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.NotiTLP.Location = new System.Drawing.Point(141, 12);
+            this.NotiTLP.Name = "NotiTLP";
+            this.NotiTLP.RowCount = 1;
+            this.NotiTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.NotiTLP.Size = new System.Drawing.Size(118, 50);
+            this.NotiTLP.TabIndex = 7;
+            this.NotiTLP.Visible = false;
+            // 
             // MainBox
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.NotiTLP);
             this.Controls.Add(this.DisposeBox);
             this.Controls.Add(this.MenuPic);
             this.Controls.Add(this.DDLabel);
@@ -147,6 +177,7 @@
             this.Text = "FileDropBoard";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(99)))), ((int)(((byte)(99)))));
             this.Deactivate += new System.EventHandler(this.MainBox_Deactivate);
+            this.Load += new System.EventHandler(this.MainBox_Load);
             this.LocationChanged += new System.EventHandler(this.MainBox_LocationChanged);
             this.SizeChanged += new System.EventHandler(this.MainBox_SizeChanged);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainBox_DragDrop);
@@ -166,14 +197,22 @@
         private System.Windows.Forms.Label DDLabel;
         private System.Windows.Forms.Timer MenuButtonProductionTimer;
         private System.Windows.Forms.PictureBox MenuPic;
-        private System.Windows.Forms.Timer MenuProductionTimer;
+        public System.Windows.Forms.Timer MenuProductionTimer;
         private System.Windows.Forms.Timer MenuCloseTimer;
         private System.Windows.Forms.Timer DragProductionTimer;
         private System.Windows.Forms.Timer TileDragTimer;
         private System.Windows.Forms.Timer DragUpdateTimer;
+        private System.Windows.Forms.Timer InfoProductionTimer;
+        public System.Windows.Forms.Timer InfoCloseTimer;
         private System.ComponentModel.BackgroundWorker GetPreviewWorker;
-        private System.Windows.Forms.PictureBox MainGRPBox;
+        public System.Windows.Forms.PictureBox MainGRPBox;
         private System.Windows.Forms.PictureBox DisposeBox;
+        /*
+        private System.Windows.Forms.Label InfoLabel;
+        private System.Windows.Forms.Label InfoBackLabel;
+        */
+        public Dictionary<string,object> AdditionalControls = new Dictionary<string, object>();
+        public System.Windows.Forms.TableLayoutPanel NotiTLP;
     }
 }
 
