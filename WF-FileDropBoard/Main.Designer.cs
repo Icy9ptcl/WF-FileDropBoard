@@ -2,7 +2,7 @@
 
 namespace WF_FileDropBoard
 {
-    partial class MainBox
+    partial class Main
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -31,7 +31,7 @@ namespace WF_FileDropBoard
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.DDLabel = new System.Windows.Forms.Label();
             this.MenuButtonProductionTimer = new System.Windows.Forms.Timer(this.components);
             this.MenuPic = new System.Windows.Forms.PictureBox();
@@ -42,7 +42,6 @@ namespace WF_FileDropBoard
             this.DragUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.InfoProductionTimer = new System.Windows.Forms.Timer(this.components);
             this.InfoCloseTimer = new System.Windows.Forms.Timer(this.components);
-            this.GetPreviewWorker = new System.ComponentModel.BackgroundWorker();
             this.MainGRPBox = new System.Windows.Forms.PictureBox();
             this.DisposeBox = new System.Windows.Forms.PictureBox();
             this.NotiTLP = new System.Windows.Forms.TableLayoutPanel();
@@ -114,11 +113,6 @@ namespace WF_FileDropBoard
             // 
             this.InfoCloseTimer.Interval = 10000;
             this.InfoCloseTimer.Tick += new System.EventHandler(this.InfoCloseTimer_Tick);
-            // 
-            // GetPreviewWorker
-            // 
-            this.GetPreviewWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GetPreviewWorker_DoWork);
-            this.GetPreviewWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GetPreviewWorker_RunWorkerCompleted);
             // 
             // MainGRPBox
             // 
@@ -204,7 +198,6 @@ namespace WF_FileDropBoard
         private System.Windows.Forms.Timer DragUpdateTimer;
         private System.Windows.Forms.Timer InfoProductionTimer;
         public System.Windows.Forms.Timer InfoCloseTimer;
-        private System.ComponentModel.BackgroundWorker GetPreviewWorker;
         public System.Windows.Forms.PictureBox MainGRPBox;
         private System.Windows.Forms.PictureBox DisposeBox;
         /*

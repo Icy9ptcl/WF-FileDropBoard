@@ -9,12 +9,19 @@ using System.IO;
 using Form1;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-
+using System.Xml;
 
 namespace WF_FileDropBoard {
-    public partial class MainBox : Form {
+    public partial class Main : Form {
 
         FileMenu FM;
+        //Settings ST;
+
+        public const string VersionS = "1.0.0";
+        public const int VerNum = 1;
+
+        public string FilePath = @"%AppData%\Hiro-Project\FileDropBoard\";
+        public string FileName = "Setting.xml";
 
         private int MenuColor_R = 0;
         private int MenuColor_G = 150;
@@ -39,7 +46,7 @@ namespace WF_FileDropBoard {
         private ProductionModeE DragProductionMode = ProductionModeE.None;
 
         private bool IsMenuOpenB = false;
-
+        public bool IsSettingsOpenB = false;
         //FileData FileListS = new FileData();
         private List<FileData> fileListS = new List<FileData>();
 
@@ -61,6 +68,10 @@ namespace WF_FileDropBoard {
             {".exe", Color.FromArgb(127,35,198) }
         };
 
+        public Color Noti_InfoColor = Color.FromArgb( 50, 150, 200);
+        public Color Noti_SuccColor = Color.FromArgb( 50, 150,  50);
+        public Color Noti_WarnColor = Color.FromArgb(180, 70,   0);
+
 
         //FileData TempFileData = new FileData();
 
@@ -75,7 +86,7 @@ namespace WF_FileDropBoard {
         private bool AlreadyTimed = false;
         private bool MouseDragging = false;
 
-        private bool DenyDragging = false;
+       // private bool DenyDragging = false;
 
 
         private int InfoLoopCount = 0;
@@ -84,61 +95,36 @@ namespace WF_FileDropBoard {
         public ProductionModeE InfoProductionMode = ProductionModeE.None;
 
         private System.Windows.Forms.TableLayoutPanel SaveNotiTLP;
+        public List<string> Logs = new List<string>();
 
         // 表示系設定
         int DragUpdateTick = 15;
 
-        string File_DateFormatS = "MM/dd";
-        string File_TimeFormatS = "HH:mm";
+        public string File_DateFormatS = "MM/dd";
+        public string File_TimeFormatS = "HH:mm";
 
-        bool File_AlwaysShowDate = true;
-        bool File_ShowPreview = true;
-        enum File_ShowDateModeE {
+        public bool File_AlwaysShowDate = true;
+        public bool File_ShowPreview = true;
+        public enum File_ShowDateModeE {
             None,
             DateOnly,
             TimeOnly,
             DateAndTime
         }
 
-        File_ShowDateModeE File_ShowDateMode = File_ShowDateModeE.DateAndTime;
-
-        [DataContract(Name = "Settings")]
-        public class Settings : IExtensibleDataObject {
-            private ExtensionDataObject _extensionData;
-            public ExtensionDataObject ExtensionData {
-                get {
-                    return _extensionData;
-                }
-                set {
-                    _extensionData = value;
-                }
-
-            }
-
-            [DataMember(Order = 0)]
-            private bool File_AlwaysShowDate;
-            private bool File_ShowPreview;
-
-            private List<FileData> FileListS;
-            Dictionary<String, Color> ExtCol;
-            HashSet<int> UsedFileNumS;
-
-            public Settings() {
-                File_AlwaysShowDate = false;
-                FileListS = new List<FileData>();
-
-            }
-        }
+        public File_ShowDateModeE File_ShowDateMode = File_ShowDateModeE.DateAndTime;
 
 
-        public MainBox() {
+
+        public Main() {
             InitializeComponent();
+
             //Console.WriteLine(FileListS[])
         }
 
         //ドラッグされた....これって入る？
         private void MainBox_DragEnter(object sender, DragEventArgs e) {
-            Debug.Print("{0},{1}", MouseDragging, DenyDragging);
+            //Debug.Print("{0},{1}", MouseDragging, DenyDragging);
             // if ((MouseDragging == false) && (DenyDragging == false)) { // 複製されちゃ困るので
             if (MouseDragging == false) { // 複製されちゃ困るので
                 if (e.Data.GetDataPresent(DataFormats.FileDrop)) {　//これは....ファイル？
@@ -146,7 +132,7 @@ namespace WF_FileDropBoard {
                     DragProductionTimer.Start();
                     DragProductionTime = 0;
                     e.Effect = DragDropEffects.Copy; //コピーっぽい
-                    Debug.Print("Drag:Allow");
+                    //Debug.Print("Drag:Allow");
                 } else { //ファイルじゃない
                     e.Effect = DragDropEffects.None;
                 }
@@ -221,7 +207,7 @@ namespace WF_FileDropBoard {
             //SelectedFileNum = -1;
             DragUpdateTimer.Stop();
             if (( MouseDragging == true ) && ( SelectedFileNum != -1 )) {
-                DenyDragging = true;
+                //DenyDragging = true;
             }
             /*
             if (MouseDragging == true) {
@@ -280,8 +266,11 @@ namespace WF_FileDropBoard {
                 GRP.DrawString(WriteFileData.FileName, this.Font, FileNameBrush, Namerect);
                 //プレビュー描画
                 SolidBrush FilePreviewBrush = new SolidBrush(Color.FromArgb(192, 192, 192));
-                RectangleF PrevRect = new RectangleF(WriteFileData.PosX, WriteFileData.PosY + NameSize.Height, TileWidth, WritableY - NameSize.Height);
-                GRP.DrawString(WriteFileData.FilePreviewS, this.Font, FilePreviewBrush, PrevRect);
+                if (File_ShowPreview) {
+                    
+                    RectangleF PrevRect = new RectangleF(WriteFileData.PosX, WriteFileData.PosY + NameSize.Height, TileWidth, WritableY - NameSize.Height);
+                    GRP.DrawString(WriteFileData.FilePreviewS, this.Font, FilePreviewBrush, PrevRect);
+                }
                 //日付...描画する？
                 if (File_AlwaysShowDate == true) {
                     string WriteDateS = "";
@@ -534,6 +523,7 @@ namespace WF_FileDropBoard {
 
         private void MenuPic_Click(object sender, EventArgs e) {
             //Debug.Print("Clicked");
+            //throw new NullReferenceException();
             FM = new FileMenu(this) {
                 TopLevel = false,
                 Visible = false
@@ -654,7 +644,7 @@ namespace WF_FileDropBoard {
                 String[] FileNames = { (string)FileListS[SelectedFileNum].FilePath };
                 DataObject DraggingDataobject = new DataObject(DataFormats.FileDrop, FileNames);
                 DragDropEffects dde = this.DoDragDrop(DraggingDataobject, DragDropEffects.Copy);
-                DenyDragging = true;
+                //DenyDragging = true;
                 DragUpdateTimer.Stop();
             }
             if (MouseDragging == true) {
@@ -714,7 +704,7 @@ namespace WF_FileDropBoard {
 
                 // 最終更新時刻を個別で取得するようになったのでCO
                 // int ReadChar = 100 - FileLastWriteDateS.Length; //現在時刻ぶん
-                int ReadChar = 100; //現在時刻ぶん
+               // int ReadChar = 100; //現在時刻ぶん
 
                 char[] ReadBuff = new char[100];
                 //for (int i = 0; i < FileListS.Count; i++) {
@@ -774,6 +764,8 @@ namespace WF_FileDropBoard {
 
         private void MainBox_Load(object sender, EventArgs e) {
             DragUpdateTimer.Interval = DragUpdateTick;
+
+            LoadSettings();
         }
         /*
         private void InfoUpdateTimer_Tick(object sender, EventArgs e) {
@@ -834,7 +826,7 @@ namespace WF_FileDropBoard {
             }
 
             SaveNotiTLP.Location = new Point(0, (int)(this.Height - (((double)InfoLoopCount) / (double)InfoMaxLoopCount) * 26 - SystemInformation.CaptionHeight - 16));
-            Debug.Print("{0}", (int)( this.Height - ( ( (double)InfoLoopCount ) / (double)InfoMaxLoopCount ) * 26 - SystemInformation.CaptionHeight - 16 ));
+            //Debug.Print("{0}", (int)( this.Height - ( ( (double)InfoLoopCount ) / (double)InfoMaxLoopCount ) * 26 - SystemInformation.CaptionHeight - 16 ));
 
         }
 
@@ -867,54 +859,74 @@ namespace WF_FileDropBoard {
             //リソースを開放できるようにリストを保持しておく
             InfoUsingControls = UsedControls;
         }
+
+        public bool OpenSettings() {
+            if (IsSettingsOpenB == false) {
+                WF_FileDropBoard.Setting ST = new WF_FileDropBoard.Setting(this);
+                ST.Show();
+                IsSettingsOpenB = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// エラーログを追加します。
+        /// </summary>
+        /// <param name="ErrorMessage">エラーとなるメッセージ。</param>
+        /// <param name="NotifyFlag">ユーザーに通知するか。</param>
+        public void AddError(string ErrorMessage,bool NotifyFlag) {
+            Logs.Add("[ERROR]" + ErrorMessage);
+
+        }
+
+        public void LoadSettings() {
+            if (File.Exists(FilePath + FileName)) {
+                Configuration CF;
+                DataIO dataIO = new DataIO();
+                CF = DataIO.LoadSettings<Configuration>(FilePath + FileName);
+                CF.MB = this;
+                CF.ExportSettings();
+            } else {
+                Directory.CreateDirectory( FilePath );
+            }
+        }
+
     }
 
-    /* awaitを使いたかったので移動
-    public class Preview_Loader {
-        int Index;
-        MainBox MF;
-
-        public Preview_Loader(int Index) {
-            this.Index = Index;
+    /// <summary>
+    /// 設定を読み込んだり書き込んだりするクラス。
+    /// </summary>
+    public class DataIO {
+        /// <summary>
+        /// ディスクに XML として設定を書き込みます。
+        /// </summary>
+        /// <typeparam name="T">書き込むクラスの型。</typeparam>
+        /// <param name="FilePath">ファイルのパス。</param>
+        /// <param name="settings">書き込むクラスのインスタンス。</param>
+        public static void SaveSettings<T>(string FilePath, T settings) {
+            DataContractSerializer sr = new DataContractSerializer(typeof(T));
+            XmlWriterSettings stg = new XmlWriterSettings();
+            stg.Encoding = new UTF8Encoding();
+            using (XmlWriter xw = XmlWriter.Create(FilePath)) {
+                sr.WriteObject(xw, settings);
+            }
         }
 
-        public void Start(Preview_Loader PL) {
-            //Preview_Loader PL = new Preview_Loader();
-            //Thread th = new Thread(new ThreadStart(PL.Run));
-            //th.Start();
+        /// <summary>
+        /// ディスクから XML として保存された設定を読み込みます。
+        /// </summary>
+        /// <typeparam name="T">書き込むクラスの型。</typeparam>
+        /// <param name="FilePath">ファイルのパス。</param>
+        /// <returns></returns>
+        public static T LoadSettings<T>(string FilePath) {
+            DataContractSerializer sr = new DataContractSerializer(typeof(T));
+            using (XmlReader xr = XmlReader.Create(FilePath)) {
+                return (T)sr.ReadObject(xr);
+            }
         }
-
-        public async Task<string> Run() {
-            FileData TempFD = MF.FileListS[Index];
-            string FilePath = TempFD.FilePath;
-            // プレビューを読み込む程度
-            string ExtS = TempFD.FileExt;
-            string PreviewedStringS = "プレビューできません";
-
-            //for (int i = 0; i < FileListS.Count; i++) {
-            //    FileStream FS = new FileStream(CurrentFD.FilePath,);
-
-                if (ExtS == ".txt") {
-                    PreviewedStringS = "";
-                    //100文字読みたい
-                    StreamReader SR = new StreamReader(FilePath, Encoding.GetEncoding("UTF-8"));
-                    for (int i = 0; i < 100; i++) {
-                        try {
-                            PreviewedStringS += SR.Read().ToString();
-                        } catch (Exception e) {
-                            // DO NOTHING.
-                        }
-                    }
-
-                }
-
-            TempFD.FilePreviewS = PreviewedStringS;
-            MF.FileListS[Index] = TempFD;
-            return PreviewedStringS;
-            //}
-        }
-        
 
     }
-    */
+
 }

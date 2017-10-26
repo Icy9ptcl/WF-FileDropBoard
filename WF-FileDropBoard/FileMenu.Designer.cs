@@ -3,7 +3,7 @@
         /// <summary>
         /// Required designer variable.
         /// But you CANNOT OPEN THIS FILE with windows form designer.
-        /// If you're going to edit this file, you should edit withour designer. JUST YOUR SKILL!
+        /// If you're going to edit this file, you should edit without designer. JUST YOUR SKILL!
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
@@ -29,6 +29,7 @@
             this.FileMenu_DescL = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.FM_ExitLabel = new System.Windows.Forms.Label();
+            this.FM_GoSettingsLabel = new System.Windows.Forms.Label();
             this.FM_AllRemoveLabel = new System.Windows.Forms.Label();
             this.FileMenuTLP.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -72,14 +73,16 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.FM_ExitLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.FM_ExitLabel, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.FM_GoSettingsLabel, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 110);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(150, 190);
             this.tableLayoutPanel1.TabIndex = 1;
@@ -87,7 +90,7 @@
             // FM_ExitLabel
             // 
             this.FM_ExitLabel.AutoSize = true;
-            this.FM_ExitLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.FM_ExitLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.FM_ExitLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FM_ExitLabel.Location = new System.Drawing.Point(0, 160);
             this.FM_ExitLabel.Margin = new System.Windows.Forms.Padding(0);
@@ -99,6 +102,22 @@
             this.FM_ExitLabel.Click += new System.EventHandler(this.FM_ExitLabel_Click);
             this.FM_ExitLabel.MouseEnter += new System.EventHandler(this.FM_ExitLabel_MouseEnter);
             this.FM_ExitLabel.MouseLeave += new System.EventHandler(this.FM_ExitLabel_MouseLeave);
+            // 
+            // FM_GoSettingsLabel
+            // 
+            this.FM_GoSettingsLabel.AutoSize = true;
+            this.FM_GoSettingsLabel.BackColor = System.Drawing.Color.White;
+            this.FM_GoSettingsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FM_GoSettingsLabel.Location = new System.Drawing.Point(0, 130);
+            this.FM_GoSettingsLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FM_GoSettingsLabel.Name = "FM_GoSettingsLabel";
+            this.FM_GoSettingsLabel.Size = new System.Drawing.Size(150, 30);
+            this.FM_GoSettingsLabel.TabIndex = 1;
+            this.FM_GoSettingsLabel.Text = "設定";
+            this.FM_GoSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.FM_GoSettingsLabel.Click += new System.EventHandler(this.FM_GoSettingsLabel_Click);
+            this.FM_GoSettingsLabel.MouseEnter += new System.EventHandler(this.FM_GoSettingsLabel_MouseEnter);
+            this.FM_GoSettingsLabel.MouseLeave += new System.EventHandler(this.FM_GoSettingsLabel_MouseLeave);
             // 
             // FM_AllRemoveLabel
             // 
@@ -143,5 +162,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label FM_ExitLabel;
         private System.Windows.Forms.Label FM_AllRemoveLabel;
+        private System.Windows.Forms.Label FM_GoSettingsLabel;
     }
 }

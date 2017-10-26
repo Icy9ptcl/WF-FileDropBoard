@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WF_FileDropBoard {
     public partial class FileMenu : Form {
 
-        MainBox MB;
+        Main MB;
 
-        public FileMenu(MainBox MB) {
+        public FileMenu(Main MB) {
             this.MB = MB;
             InitializeComponent();
         }
 
-        private Color UnHoverCol = Color.FromArgb(224, 224, 224);
+        private Color UnHoverCol = Color.FromArgb(255, 255, 255);
         private Color HoverCol = Color.FromArgb(128, 128, 128);
 
         private void FileMenu_Load(object sender, EventArgs e) {
@@ -36,21 +30,21 @@ namespace WF_FileDropBoard {
 
         private void FM_ExitLabel_MouseEnter(object sender, EventArgs e) {
             //ファイルメニューの「終了する」に入ってきた
-            FM_ExitLabel.BackColor = HoverCol;
+            FM_ExitLabel.BackColor = Color.FromArgb(200, 100, 100);
         }
 
         private void FM_ExitLabel_MouseLeave(object sender, EventArgs e) {
             //ファイルメニューの「終了する」から出た
-            FM_ExitLabel.BackColor = UnHoverCol;
+            FM_ExitLabel.BackColor = Color.FromArgb(255, 150, 150);
         }
 
         //ファイルメニューの「終了する」がクリックされた
         private void FM_ExitLabel_Click(object sender, EventArgs e) {
             //ファイルメニューを閉じる
-            MB.MenuProductionMode = MainBox.ProductionModeE.Leave;
+            MB.MenuProductionMode = Main.ProductionModeE.Leave;
             MB.MenuProductionTimer.Start();
 
-            if (this.MB.InfoProductionMode == MainBox.ProductionModeE.None) { //通知が動いてなければ
+            if (this.MB.InfoProductionMode == Main.ProductionModeE.None) { //通知が動いてなければ
                 //コントロールの構成
                 // --------------------------------
                 // | DescLB               |ClickLB|
@@ -76,7 +70,7 @@ namespace WF_FileDropBoard {
                     Padding = new Padding(3, 0, 3, 0)
                 };
                 //通知のパネルの背景色をいじる (これを白にすると見えなくて困る)
-                this.MB.NotiTLP.BackColor = Color.FromArgb(150, 100, 100);
+                this.MB.NotiTLP.BackColor = MB.Noti_WarnColor;
                 //座標とサイズをいじる
                 this.MB.NotiTLP.Location = new Point(0, this.Height);
                 this.MB.NotiTLP.Size = new Size(Width, 30);
@@ -108,6 +102,7 @@ namespace WF_FileDropBoard {
                 this.MB.NotiTLP.Visible = true;
                 //通知として初期化する
                 this.MB.ShowInfo(this.MB.NotiTLP, UseControls, 5);
+                System.Media.SystemSounds.Question.Play();
             }
         }
 
@@ -120,13 +115,14 @@ namespace WF_FileDropBoard {
         private void FM_ExitButtonLabel_MouseEnter(object sender, EventArgs e) {
             //マウスが入ってきた
             Label ContLB = (Label)this.MB.NotiTLP.Controls["NT_ExitButtonLabel"];
-            ContLB.BackColor = Color.FromArgb(100 , 50, 50);
+            Color Nic = MB.Noti_WarnColor;
+            ContLB.BackColor = Color.FromArgb(Nic.R / 2, Nic.G / 2, Nic.B / 2);
         }
 
         private void FM_ExitButtonLabel_MouseLeave(object sender, EventArgs e) {
             //マウスが出ていった
             Label ContLB = (Label)this.MB.NotiTLP.Controls["NT_ExitButtonLabel"];
-            ContLB.BackColor = Color.FromArgb(150, 100, 100);
+            ContLB.BackColor = MB.Noti_WarnColor;
         }
 
 
@@ -144,10 +140,10 @@ namespace WF_FileDropBoard {
         //クリックされた
         private void FM_AllRemoveLabel_Click(object sender, EventArgs e) {
             //ファイルメニューを閉じる
-            MB.MenuProductionMode = MainBox.ProductionModeE.Leave;
+            MB.MenuProductionMode = Main.ProductionModeE.Leave;
             MB.MenuProductionTimer.Start();
 
-            if (this.MB.InfoProductionMode == MainBox.ProductionModeE.None) { //通知が動いてなければ
+            if (this.MB.InfoProductionMode == Main.ProductionModeE.None) { //通知が動いてなければ
                 //コントロールの構成
                 // --------------------------------
                 // | DescLB               |ClickLB|
@@ -173,7 +169,7 @@ namespace WF_FileDropBoard {
                     Padding = new Padding(3, 0, 3, 0)
                 };
                 //通知のパネルの背景色をいじる (これを白にすると見えなくて困る)
-                this.MB.NotiTLP.BackColor = Color.FromArgb(100, 150, 200);
+                this.MB.NotiTLP.BackColor = MB.Noti_InfoColor;
                 //座標とサイズをいじる
                 this.MB.NotiTLP.Location = new Point(0, this.Height);
                 this.MB.NotiTLP.Size = new Size(Width, 30);
@@ -205,20 +201,22 @@ namespace WF_FileDropBoard {
                 this.MB.NotiTLP.Visible = true;
                 //通知として初期化する
                 this.MB.ShowInfo(this.MB.NotiTLP, UseControls, 5);
+                System.Media.SystemSounds.Question.Play();
             }
         }
 
         private void FM_AllRemoveButtonLabel_MouseEnter(object sender, EventArgs e) {
             Label ContLB = (Label)this.MB.NotiTLP.Controls["NT_RemoveButtonLabel"];
             if (ContLB != null) {
-                ContLB.BackColor = Color.FromArgb(50, 75, 100);
+                Color Nic = MB.Noti_InfoColor;
+                ContLB.BackColor = Color.FromArgb(Nic.R / 2, Nic.G / 2, Nic.B / 2);
             }
         }
 
         private void FM_AllRemoveButtonLabel_MouseLeave(object sender, EventArgs e) {
             Label ContLB = (Label)this.MB.NotiTLP.Controls["NT_RemoveButtonLabel"];
             if (ContLB != null) {
-                ContLB.BackColor = Color.FromArgb(100, 150, 200);
+                ContLB.BackColor = MB.Noti_InfoColor;
             }
         }
 
@@ -249,7 +247,7 @@ namespace WF_FileDropBoard {
                 Dock = DockStyle.Fill
             };
             //通知のパネルの背景色をいじる (これを白にすると見えなくて困る)
-            this.MB.NotiTLP.BackColor = Color.FromArgb(100, 150, 200);
+            this.MB.NotiTLP.BackColor = MB.Noti_InfoColor;
             //座標とサイズをいじる
             this.MB.NotiTLP.Location = new Point(0, this.Height);
             this.MB.NotiTLP.Size = new Size(Width, 30);
@@ -269,7 +267,69 @@ namespace WF_FileDropBoard {
             this.MB.NotiTLP.Visible = true;
             //通知として初期化する
             this.MB.ShowInfo(this.MB.NotiTLP, UseControls, 3);
+            System.Media.SystemSounds.Asterisk.Play();
         }
 
+        //設定を開く
+        private void FM_GoSettingsLabel_Click(object sender, EventArgs e) {
+            bool IsSettingsOpened = false;
+            IsSettingsOpened = MB.OpenSettings(); // 設定を開く
+            if (IsSettingsOpened == false) {
+                //設定がすでに開いている
+                this.MB.FileListS.Clear();
+                //無理やり通知を閉じる
+                MB.InfoCloseTimer.Stop();
+                MB.InfoCloseTimer.Interval = 1;
+                MB.InfoCloseTimer.Start();
+                //描画してる領域を更新
+                MB.MainGRPBox.Invalidate();
+
+                //除外したことを伝える
+                //コントロールの構成
+                // --------------------------------
+                // | DescLB                        |
+                // --------------------------------
+                //イメージ的には......
+                Label DescLB = new Label() {
+                    Text = "設定画面はすでに開かれています",
+                    AutoSize = false,
+                    ForeColor = Color.White,
+                    BackColor = Color.Transparent,
+                    Name = "NT_SettingsAlreadyOpenedDescLabel",
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Dock = DockStyle.Fill
+                };
+                //通知のパネルの背景色をいじる (これを白にすると見えなくて困る)
+                this.MB.NotiTLP.BackColor = MB.Noti_InfoColor;
+                //座標とサイズをいじる
+                this.MB.NotiTLP.Location = new Point(0, this.Height);
+                this.MB.NotiTLP.Size = new Size(Width, 30);
+                //列を初期化して追加する
+                this.MB.NotiTLP.ColumnStyles.Clear();
+                this.MB.NotiTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+                //コントロールを追加する
+                this.MB.NotiTLP.Controls.Clear();
+                this.MB.NotiTLP.Controls.Add(DescLB, 0, 0);
+                //使用しているコントロールの名前を設定する
+                //これがないとリソースを開放できない
+                List<string> UseControls = new List<string> {
+                    "NT_SettingsAlreadyOpenedDescLabel",
+            };
+                //表示する準備
+                this.MB.NotiTLP.BringToFront();
+                this.MB.NotiTLP.Visible = true;
+                //通知として初期化する
+                this.MB.ShowInfo(this.MB.NotiTLP, UseControls, 3);
+                System.Media.SystemSounds.Question.Play();
+            }
+        }
+
+        private void FM_GoSettingsLabel_MouseEnter(object sender, EventArgs e) {
+            FM_GoSettingsLabel.BackColor = HoverCol;
+        }
+
+        private void FM_GoSettingsLabel_MouseLeave(object sender, EventArgs e) {
+            FM_GoSettingsLabel.BackColor = UnHoverCol;
+        }
     }
 }
