@@ -24,12 +24,12 @@
         /// </summary>
         private void InitializeComponent() {
             this.SettingsTLP = new System.Windows.Forms.TableLayoutPanel();
-            this.Settings_DescLabel = new System.Windows.Forms.Label();
             this.Settings_PageControlTLP = new System.Windows.Forms.TableLayoutPanel();
             this.Settings_PageControl_L = new System.Windows.Forms.Label();
             this.Settings_PageControl_R = new System.Windows.Forms.Label();
             this.Settings_PageLabel = new System.Windows.Forms.Label();
             this.Settings_HeaderTLP = new System.Windows.Forms.TableLayoutPanel();
+            this.Settings_DescLabel = new System.Windows.Forms.Label();
             this.Settings_UpdateLabel = new System.Windows.Forms.Label();
             this.SettingsTLP.SuspendLayout();
             this.Settings_PageControlTLP.SuspendLayout();
@@ -52,19 +52,6 @@
             this.SettingsTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.SettingsTLP.Size = new System.Drawing.Size(284, 261);
             this.SettingsTLP.TabIndex = 0;
-            // 
-            // Settings_DescLabel
-            // 
-            this.Settings_DescLabel.AutoSize = true;
-            this.Settings_DescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Settings_DescLabel.Font = new System.Drawing.Font("メイリオ", 12F);
-            this.Settings_DescLabel.Location = new System.Drawing.Point(0, 0);
-            this.Settings_DescLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.Settings_DescLabel.Name = "Settings_DescLabel";
-            this.Settings_DescLabel.Size = new System.Drawing.Size(240, 28);
-            this.Settings_DescLabel.TabIndex = 1;
-            this.Settings_DescLabel.Text = "設定";
-            this.Settings_DescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Settings_PageControlTLP
             // 
@@ -146,6 +133,18 @@
             this.Settings_HeaderTLP.Size = new System.Drawing.Size(280, 28);
             this.Settings_HeaderTLP.TabIndex = 3;
             // 
+            // Settings_DescLabel
+            // 
+            this.Settings_DescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Settings_DescLabel.Font = new System.Drawing.Font("メイリオ", 12F);
+            this.Settings_DescLabel.Location = new System.Drawing.Point(0, 0);
+            this.Settings_DescLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.Settings_DescLabel.Name = "Settings_DescLabel";
+            this.Settings_DescLabel.Size = new System.Drawing.Size(240, 28);
+            this.Settings_DescLabel.TabIndex = 1;
+            this.Settings_DescLabel.Text = "設定";
+            this.Settings_DescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Settings_UpdateLabel
             // 
             this.Settings_UpdateLabel.AutoSize = true;
@@ -161,7 +160,7 @@
             this.Settings_UpdateLabel.MouseEnter += new System.EventHandler(this.Settings_UpdateLabel_MouseEnter);
             this.Settings_UpdateLabel.MouseLeave += new System.EventHandler(this.Settings_UpdateLabel_MouseLeave);
             // 
-            // Settings
+            // Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -169,7 +168,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.SettingsTLP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "Settings";
+            this.Name = "Setting";
             this.Text = "Settings";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
             this.Load += new System.EventHandler(this.Settings_Load);

@@ -70,6 +70,7 @@ namespace WF_FileDropBoard
             // MenuPic
             // 
             this.MenuPic.BackColor = System.Drawing.Color.Transparent;
+            this.MenuPic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MenuPic.Location = new System.Drawing.Point(12, 12);
             this.MenuPic.Name = "MenuPic";
             this.MenuPic.Size = new System.Drawing.Size(70, 70);

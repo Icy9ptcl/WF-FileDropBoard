@@ -1,6 +1,6 @@
-﻿using System;
+﻿// 設定 - 情報
+using System;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace WF_FileDropBoard {
     public partial class Setting_Part_Info : Form {
@@ -13,7 +13,6 @@ namespace WF_FileDropBoard {
 
         private void Setting_Part_Info_Load(object sender, EventArgs e) {
             Settings_Info_VerLabel.Text = "Ver " + Main.VersionS;
-            Debug.Print("Successfully loaded");
         }
 
         private void Settings_Info_ContactL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

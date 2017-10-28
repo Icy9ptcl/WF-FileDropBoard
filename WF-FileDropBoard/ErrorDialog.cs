@@ -1,4 +1,10 @@
-﻿using System;
+﻿//
+// Hey! did you get thrown the ERROR!?!? OMG!
+// Please send error log to [HiShis.yfmn@gmail.com] !
+//
+
+
+using System;
 using System.Windows.Forms;
 using System.Threading;
 

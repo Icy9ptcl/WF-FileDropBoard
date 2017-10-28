@@ -36,7 +36,7 @@ namespace WF_FileDropBoard {
                 }
             } else {
                 //そもそも表示しないつもりだった
-                Settings_Tile_ShowPreviewCB.Enabled = false;
+                Settings_Tile_SelDateMode.Enabled = false;
             }
 
             //「更新時刻として表示する内容」の設定

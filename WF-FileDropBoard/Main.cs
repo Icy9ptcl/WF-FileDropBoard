@@ -1,8 +1,10 @@
 ﻿//
 //  FileDropBoard - v 1.0
 //    by 2012 - 2017 Hiro-Project
-//  Lisensed under the GPL-3.0
-//  See: https://www.gnu.org/licenses/gpl-3.0.en.html
+//  GitHub : https://github.com/hiro0916-ptcl/WF-FileDropBoard 
+//
+//  LICENSED under the GPL-3.0
+//   - See : https://www.gnu.org/licenses/gpl-3.0.en.html
 //
 
 using System;
@@ -82,6 +84,8 @@ namespace WF_FileDropBoard {
         public Color Noti_SuccColor = Color.FromArgb( 50, 150,  50);
         public Color Noti_WarnColor = Color.FromArgb(180, 70,   0);
 
+        //タイルの大きさの設定
+        //変更できるようにするよ
         public int TileWidth = 100;
         public int TileHeight = 100;
 
@@ -92,9 +96,6 @@ namespace WF_FileDropBoard {
         private int SelectedFileNum = -1;
         private bool AlreadyTimed = false;
         private bool MouseDragging = false;
-
-       // private bool DenyDragging = false;
-
 
         private int InfoLoopCount = 0;
         private int InfoMaxLoopCount = 10;
@@ -120,8 +121,6 @@ namespace WF_FileDropBoard {
         }
 
         public File_ShowDateModeE File_ShowDateMode = File_ShowDateModeE.DateAndTime;
-
-
 
         public Main() {
             InitializeComponent();
@@ -899,3 +898,6 @@ namespace WF_FileDropBoard {
     }
 
 }
+
+// By the way, do you like PINEAPPLES? I love it! xD
+// [EOF]

@@ -144,7 +144,6 @@ namespace WF_FileDropBoard {
         /// <param name="ToPage">移動先のページ。</param>
         private void Settings_ChangePage(int ToPage) {
             Type tp = Type.GetType("WF_FileDropBoard.Setting_Part_" + SettingFormsName[ToPage]);
-            Debug.Print("Changing to {0}", "WF_FileDropBoard.Setting_Part_" + SettingFormsName[ToPage]);
             if (tp != null) {
                 this.SettingsTLP.Controls.Remove(OpeningSettingsForm);
                 OpeningSettingsForm = (System.Windows.Forms.Form)Activator.CreateInstance(
