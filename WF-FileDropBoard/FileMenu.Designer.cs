@@ -30,8 +30,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.FM_ExitLabel = new System.Windows.Forms.Label();
             this.FM_GoSettingsLabel = new System.Windows.Forms.Label();
-            this.FM_AllRemoveLabel = new System.Windows.Forms.Label();
             this.FM_FileOpenLabel = new System.Windows.Forms.Label();
+            this.FM_AllRemoveLabel = new System.Windows.Forms.Label();
             this.FM_FileOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.FileMenuTLP.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -122,6 +122,23 @@
             this.FM_GoSettingsLabel.MouseEnter += new System.EventHandler(this.FM_GoSettingsLabel_MouseEnter);
             this.FM_GoSettingsLabel.MouseLeave += new System.EventHandler(this.FM_GoSettingsLabel_MouseLeave);
             // 
+            // FM_FileOpenLabel
+            // 
+            this.FM_FileOpenLabel.AutoSize = true;
+            this.FM_FileOpenLabel.BackColor = System.Drawing.Color.White;
+            this.FM_FileOpenLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FM_FileOpenLabel.ForeColor = System.Drawing.Color.Black;
+            this.FM_FileOpenLabel.Location = new System.Drawing.Point(0, 20);
+            this.FM_FileOpenLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FM_FileOpenLabel.Name = "FM_FileOpenLabel";
+            this.FM_FileOpenLabel.Size = new System.Drawing.Size(150, 30);
+            this.FM_FileOpenLabel.TabIndex = 3;
+            this.FM_FileOpenLabel.Text = "開く";
+            this.FM_FileOpenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.FM_FileOpenLabel.Click += new System.EventHandler(this.FM_FileOpenLabel_Click);
+            this.FM_FileOpenLabel.MouseEnter += new System.EventHandler(this.FM_FileOpenLabel_MouseEnter);
+            this.FM_FileOpenLabel.MouseHover += new System.EventHandler(this.FM_FileOpenLabel_MouseHover);
+            // 
             // FM_AllRemoveLabel
             // 
             this.FM_AllRemoveLabel.AutoSize = true;
@@ -137,22 +154,6 @@
             this.FM_AllRemoveLabel.Click += new System.EventHandler(this.FM_AllRemoveLabel_Click);
             this.FM_AllRemoveLabel.MouseEnter += new System.EventHandler(this.FM_AllRemoveLabel_MouseEnter);
             this.FM_AllRemoveLabel.MouseLeave += new System.EventHandler(this.FM_AllRemoveLabel_MouseLeave);
-            // 
-            // FM_FileOpenLabel
-            // 
-            this.FM_FileOpenLabel.AutoSize = true;
-            this.FM_FileOpenLabel.BackColor = System.Drawing.Color.White;
-            this.FM_FileOpenLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FM_FileOpenLabel.ForeColor = System.Drawing.Color.Black;
-            this.FM_FileOpenLabel.Location = new System.Drawing.Point(3, 20);
-            this.FM_FileOpenLabel.Name = "FM_FileOpenLabel";
-            this.FM_FileOpenLabel.Size = new System.Drawing.Size(144, 30);
-            this.FM_FileOpenLabel.TabIndex = 3;
-            this.FM_FileOpenLabel.Text = "開く";
-            this.FM_FileOpenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.FM_FileOpenLabel.Click += new System.EventHandler(this.FM_FileOpenLabel_Click);
-            this.FM_FileOpenLabel.MouseEnter += new System.EventHandler(this.FM_FileOpenLabel_MouseEnter);
-            this.FM_FileOpenLabel.MouseHover += new System.EventHandler(this.FM_FileOpenLabel_MouseHover);
             // 
             // FM_FileOpenDialog
             // 

@@ -4,8 +4,8 @@ using System.Diagnostics;
 
 namespace WF_FileDropBoard {
     public partial class Setting_Part_Info : Form {
-        Main MB;
 
+        Main MB;
 
         public Setting_Part_Info(Main MB) {
             InitializeComponent();
