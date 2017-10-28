@@ -10,9 +10,10 @@ Put and take files when you need them.
 
 ## How to use
   If you want to keep files,drag files TO the board. <br>
-  or If you want to take files, drag files FROM the board. <br>
-  Also if you have not needed files on board,you can remove files with drag to the TRASH. <br>
-  Files will not removed when you are removing files from board. <br>
+  Then the tile will be created - it is the file.
+  or If you want to take files, drag tile to out of the board. <br>
+  Also if you have not needed tile on board,you can remove tile with drag to the TRASH. <br>
+  Files will not removed when you remove tiles from board. <br>
   
   When you take file,You don't have to open explorer.
  
