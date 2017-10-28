@@ -1,20 +1,21 @@
 # FileDropBoard
+ファイルを必要なときに置いて、必要なときに取り出す。
 
-Put and take files when you need them.
+## 概要
+ ファイルをドロップして置いておけば、必要になったときにドラッグして取り出せます。
+ 
+ **それ以外の機能はありません。** (~~それがしたかっただけ~~)
+ 
+(* Aren't you read Japanese? See README_EN ! *)
 
-## Description
- Keep files with just dropping,
- Then take them when you need them.
+## 使い方
+ ボードの中にファイルをドロップすると、「**タイル**」ができます。 <br>
+ FileDropBoard では、「タイル」がファイルの代わりになります。 <br>
+ ボードからファイルを取り出したいときは、ウィンドウの外へタイルをドラッグすると取り出せます。 <br>
+ いらないタイルは、ゴミ箱にドラッグすると消すことができます。 <br>
+ (タイルを消してもファイルは消えません) <br>
  
-**It does just that.**
-
-## How to use
- If you want to keep files,drag files TO the board.
- or If you want to take files, drag files FROM the board.
- Also if you have not needed files on board,you can remove files with drag to the TRASH.
- Files will not removed when you are removing files from board.
+ エクスプローラーを開かなくても、すぐにファイルを取り出せます。
  
- When you take file,You don't have to open explorer.
- 
-## Requirements
- .NET Framework 4.5.2 is required.
+## 必要なもの
+ ビルドには **.NET Framework 4.5.2** が必要です。
