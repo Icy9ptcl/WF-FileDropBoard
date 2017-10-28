@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace WF_FileDropBoard {
     public partial class Setting : Form {
 
-        Main MB;
-        Form OpeningSettingsForm;
+        private Main MB;
+        private Form OpeningSettingsForm;
 
-        Color HoverCol = Color.FromArgb(128, 128, 128);
-        Color UnHoverCol = Color.FromArgb(192, 192, 192);
-        Color DisabledCol = Color.FromArgb(64, 64, 64);
+        private Color HoverCol = Color.FromArgb(128, 128, 128);
+        private Color UnHoverCol = Color.FromArgb(192, 192, 192);
+        private Color DisabledCol = Color.FromArgb(64, 64, 64);
 
-        int SettingPage = 0;
-        List<string> SettingFormsName = new List<string> {
+        private int SettingPage = 0;
+        //設定として表示する Form の名前
+        //"Setting_Part_"のあとに指定される
+        private List<string> SettingFormsName = new List<string> {
             "Tile",
-            "Extensions"
+            "Extensions",
+            "Info"
         };
 
         public Setting(Main MB) {
@@ -68,14 +72,24 @@ namespace WF_FileDropBoard {
             this.MB.NotiTLP.Visible = true;
             //通知として初期化する
             this.MB.ShowInfo(this.MB.NotiTLP, UseControls, 999);
-            System.Media.SystemSounds.Asterisk.Play();
-
+            //保存開始
             MB.IsSettingsOpenB = false;
             Configuration CF = new Configuration(MB);
             DataIO dataIO = new DataIO();
             CF.ImportSettings();
-            File.Copy(MB.FilePath + MB.FileName, MB.FilePath + MB.FileName + ".old", true);
-            DataIO.SaveSettings<Configuration>(MB.FilePath + MB.FileName,CF);
+            string SaveMessage = "設定を保存しました";
+            //バックアップ
+            try {
+                File.Copy(MB.FilePath + MB.FileName, MB.FilePath + MB.FileName + ".old", true);
+            } catch (Exception) {
+
+            }
+
+            try {
+                DataIO.SaveSettings<Configuration>(MB.FilePath + MB.FileName, CF);
+            } catch (Exception e3) {
+                SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
+            }
 
             //無理やり通知を閉じる
             MB.InfoCloseTimer.Stop();
@@ -89,7 +103,7 @@ namespace WF_FileDropBoard {
             // --------------------------------
             //イメージ的には......
             Label DescLB2 = new Label() {
-                Text = "設定を保存しました",
+                Text = SaveMessage,
                 AutoSize = false,
                 ForeColor = Color.White,
                 BackColor = Color.Transparent,
@@ -130,6 +144,7 @@ namespace WF_FileDropBoard {
         /// <param name="ToPage">移動先のページ。</param>
         private void Settings_ChangePage(int ToPage) {
             Type tp = Type.GetType("WF_FileDropBoard.Setting_Part_" + SettingFormsName[ToPage]);
+            Debug.Print("Changing to {0}", "WF_FileDropBoard.Setting_Part_" + SettingFormsName[ToPage]);
             if (tp != null) {
                 this.SettingsTLP.Controls.Remove(OpeningSettingsForm);
                 OpeningSettingsForm = (System.Windows.Forms.Form)Activator.CreateInstance(

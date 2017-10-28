@@ -23,7 +23,7 @@ namespace WF_FileDropBoard {
 
         private void Emes_Action_MailButton_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start("mailto:HiShis.yfmn@gmail.com?subject=FileDropBoard エラーログ&body=(ここにエラーログをペーストしてください)");
-            MessageBox.Show("メーラーを起動しました。\n送信する場合、エラーログのコピー/ペーストをお願いします。", "メーラーの起動", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show("メーラーを起動しました。\n送信する場合、エラーログのコピー/ペーストをお願いします。", "メーラーの起動 - FileDropBoard", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
         private void ErrorDialog_Load(object sender, EventArgs e) {
@@ -57,11 +57,12 @@ namespace WF_FileDropBoard {
             ErrText += String.Format("\r\nRuntime:{0}", Environment.Version.ToString());
             ErrText += String.Format("\r\nProcessor:{0}", Environment.ProcessorCount);
             ErrText += String.Format("\r\n\nSystem Stack-trace:{0}", Environment.StackTrace);
-            ErrText += String.Format("\r\nApp Stack-trace:\n{0}", TE.Exception.StackTrace);
+            ErrText += String.Format("\r\nApp Stack-trace:\r\n{0}", TE.Exception.StackTrace);
             ErrText += String.Format("\r\nThrown method by:{0}", TE.Exception.TargetSite);
             ErrText += String.Format("\r\nError by:{0}", TE.Exception.Source);
             ErrText += String.Format("\r\nException message:", TE.Exception.Message);
-
+            ErrText += "\n\r";
+            ErrText += "Logs:\n\r";
             ErrText += "\r\nPlease send this error log to: [hishis.yfmn@gmail.com].";
 
             ErrorLogTBox.Text = ErrText;

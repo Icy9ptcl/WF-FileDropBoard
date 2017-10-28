@@ -1,4 +1,11 @@
-﻿using System;
+﻿//
+//  FileDropBoard - v 1.0
+//    by 2012 - 2017 Hiro-Project
+//  Lisensed under the GPL-3.0
+//  See: https://www.gnu.org/licenses/gpl-3.0.en.html
+//
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -15,8 +22,8 @@ namespace WF_FileDropBoard {
     public partial class Main : Form {
 
         FileMenu FM;
-        //Settings ST;
 
+        //バージョンと割り当て番号
         public const string VersionS = "1.0.0";
         public const int VerNum = 1;
 
@@ -59,6 +66,8 @@ namespace WF_FileDropBoard {
             }
         }
 
+
+        //デフォルトの拡張子別タイル色の設定
         public Dictionary<String, Color> ExtCol = new Dictionary<String, Color>() {
             {".txt", Color.FromArgb(50,150,50)  },
             {".lnk", Color.FromArgb(150,100,100)},
@@ -68,15 +77,13 @@ namespace WF_FileDropBoard {
             {".exe", Color.FromArgb(127,35,198) }
         };
 
+        //通知の色設定
         public Color Noti_InfoColor = Color.FromArgb( 50, 150, 200);
         public Color Noti_SuccColor = Color.FromArgb( 50, 150,  50);
         public Color Noti_WarnColor = Color.FromArgb(180, 70,   0);
 
-
-        //FileData TempFileData = new FileData();
-
-        private int TileWidth = 100;
-        private int TileHeight = 100;
+        public int TileWidth = 100;
+        public int TileHeight = 100;
 
         private int TileDiffX;
         private int TileDiffY;
@@ -167,28 +174,7 @@ namespace WF_FileDropBoard {
                     PosX = ToX,
                     PosY = ToY
                 };
-
-                try {
-                    TempFileData.FileCol = ExtCol[TempFileData.FileExt];
-                } catch (KeyNotFoundException) {
-                    TempFileData.FileCol = Color.FromArgb(150, 150, 150);
-                }
-                //               TempFileData.FileNum = CurrentFileNum;
-                for (var i = 0; i < 2000; i++) {
-                    if (UsedFileNumS.Add(CurrentFileNum)) {
-                        TempFileData.FileNum = CurrentFileNum;
-                        break;
-                    } else {
-                        CurrentFileNum++;
-                    }
-                }
-                TempFileData.FileLastUpdateTime = new System.IO.FileInfo(FileItemName).LastWriteTime;
-                //                CurrentFileNum++;
-                FileListS.Add(TempFileData);
-                //Preview_Loader PL = new Preview_Loader(FileListS.Count);
-                //PL.Start(PL);
-                FileData FD = FileListS[FileListS.Count - 1];
-                FD.FilePreviewS = await GetPreview(FileListS.Count - 1);
+                await AddFile(TempFileData);
 
             }
 
@@ -199,33 +185,39 @@ namespace WF_FileDropBoard {
 
         }
 
+        /// <summary>
+        /// ファイルをボードに追加します。
+        /// </summary>
+        /// <param name="AddFileData">追加したいファイルのデータ。</param>
+        public async Task AddFile(FileData AddFileData) {
+            try {
+                AddFileData.FileCol = ExtCol[AddFileData.FileExt];
+            } catch (KeyNotFoundException) {
+                AddFileData.FileCol = Color.FromArgb(150, 150, 150);
+            }
+            //               AddFileData.FileNum = CurrentFileNum;
+            for (var i = 0; i < 2000; i++) {
+                if (UsedFileNumS.Add(CurrentFileNum)) {
+                    AddFileData.FileNum = CurrentFileNum;
+                    break;
+                } else {
+                    CurrentFileNum++;
+                }
+            }
+            AddFileData.FileLastUpdateTime = new System.IO.FileInfo(AddFileData.FilePath + AddFileData.FileName).LastWriteTime;
+            //                CurrentFileNum++;
+            FileListS.Add(AddFileData);
+            FileData FD = FileListS[FileListS.Count - 1];
+            FD.FilePreviewS = await GetPreview(FileListS.Count - 1);
+        }
+
 
         private void MainBox_MouseLeave(object sender, EventArgs e) {
-            //Debug.Print("Mouse Leaved");
             //MouseDragging = false;
             DisposeBox.Visible = false;
-            //SelectedFileNum = -1;
             DragUpdateTimer.Stop();
-            if (( MouseDragging == true ) && ( SelectedFileNum != -1 )) {
-                //DenyDragging = true;
-            }
-            /*
-            if (MouseDragging == true) {
-                Debug.Print("Drag&Drop Leaving Started");
-                String[] FileNames = { (string)FileListS[SelectedFileNum].FilePath };
-                DataObject DraggingDataobject = new DataObject(DataFormats.FileDrop, FileNames);
-                DragDropEffects dde = this.DoDragDrop(DraggingDataobject, DragDropEffects.Copy);
-            }
-            */
         }
 
-        private void MainBox_MouseEnter(object sender, EventArgs e) {
-            /*
-            if (MouseDragging == true) {
-                DenyDragging = true
-            }
-            */
-        }
 
         private void MainBox_Deactivate(object sender, EventArgs e) {
             MouseDragging = false;
@@ -240,11 +232,9 @@ namespace WF_FileDropBoard {
         // MainGRPBox : グラフィック画面
         //
         private void MainGRPBox_Paint(object sender, PaintEventArgs e) {
-            //MainGRPBox.DoubleBuffered = true;
             Graphics GRP = e.Graphics;
             GRP.Clear(Color.FromArgb(255, 255, 255, 255));
             // GRP.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            //foreach (FileData WriteFileData in FileListS) {
             FileData WriteFileData;
             for (var i = FileListS.Count - 1; i >= 0; i--) {
                 WriteFileData = FileListS[i];
@@ -267,7 +257,6 @@ namespace WF_FileDropBoard {
                 //プレビュー描画
                 SolidBrush FilePreviewBrush = new SolidBrush(Color.FromArgb(192, 192, 192));
                 if (File_ShowPreview) {
-                    
                     RectangleF PrevRect = new RectangleF(WriteFileData.PosX, WriteFileData.PosY + NameSize.Height, TileWidth, WritableY - NameSize.Height);
                     GRP.DrawString(WriteFileData.FilePreviewS, this.Font, FilePreviewBrush, PrevRect);
                 }
@@ -319,18 +308,6 @@ namespace WF_FileDropBoard {
                 DDLabel.Visible = true;
             }
             //}
-            /*
-            GRP.Clear(Color.FromArgb(255, 255, 255, 255));
-
-            int BackR = 150;
-            int BackG = 200;
-            int BackB = 250;
-            double TimePer = DragProductionTime / DragProductionMaxTime;
-
-            SolidBrush BackBrush = new SolidBrush(Color.FromArgb((int)(255 * TimePer), BackR, BackG, BackB));
-            */
-            //BackBrush.Dispose();
-            //GRP.Dispose();
 
         }
 
@@ -475,9 +452,6 @@ namespace WF_FileDropBoard {
         }
 
         private void MenuPic_Paint(object sender, PaintEventArgs e) {
-            //MainForm_Paint();
-            //CreateGraphics();
-
             Graphics MenuGRP = e.Graphics;
             MenuGRP.Clear(Color.FromArgb(255, 255, 255));
             MenuGRP.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -514,10 +488,6 @@ namespace WF_FileDropBoard {
             MenuButtonBrush.Dispose();
             MenuButtonBarBrush.Dispose();
 
-            //MenuGRP.Dispose();
-            //MenuGRP.FillRectangle(MenuBrush, 0, 0, 60, 60);
-
-            //MenuGRP.FillRectangle(MenuBrush, 0, 0, 60, 60);
             //Debug.Print("Painted");
         }
 
@@ -878,7 +848,6 @@ namespace WF_FileDropBoard {
         /// <param name="NotifyFlag">ユーザーに通知するか。</param>
         public void AddError(string ErrorMessage,bool NotifyFlag) {
             Logs.Add("[ERROR]" + ErrorMessage);
-
         }
 
         public void LoadSettings() {

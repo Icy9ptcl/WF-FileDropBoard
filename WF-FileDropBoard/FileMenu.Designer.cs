@@ -31,6 +31,8 @@
             this.FM_ExitLabel = new System.Windows.Forms.Label();
             this.FM_GoSettingsLabel = new System.Windows.Forms.Label();
             this.FM_AllRemoveLabel = new System.Windows.Forms.Label();
+            this.FM_FileOpenLabel = new System.Windows.Forms.Label();
+            this.FM_FileOpenDialog = new System.Windows.Forms.OpenFileDialog();
             this.FileMenuTLP.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -41,7 +43,8 @@
             this.FileMenuTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.FileMenuTLP.Controls.Add(this.FileMenu_DescL, 0, 0);
             this.FileMenuTLP.Controls.Add(this.tableLayoutPanel1, 0, 4);
-            this.FileMenuTLP.Controls.Add(this.FM_AllRemoveLabel, 0, 1);
+            this.FileMenuTLP.Controls.Add(this.FM_FileOpenLabel, 0, 1);
+            this.FileMenuTLP.Controls.Add(this.FM_AllRemoveLabel, 0, 2);
             this.FileMenuTLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileMenuTLP.Location = new System.Drawing.Point(0, 0);
             this.FileMenuTLP.Margin = new System.Windows.Forms.Padding(0);
@@ -124,7 +127,7 @@
             this.FM_AllRemoveLabel.AutoSize = true;
             this.FM_AllRemoveLabel.BackColor = System.Drawing.Color.White;
             this.FM_AllRemoveLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FM_AllRemoveLabel.Location = new System.Drawing.Point(0, 20);
+            this.FM_AllRemoveLabel.Location = new System.Drawing.Point(0, 50);
             this.FM_AllRemoveLabel.Margin = new System.Windows.Forms.Padding(0);
             this.FM_AllRemoveLabel.Name = "FM_AllRemoveLabel";
             this.FM_AllRemoveLabel.Size = new System.Drawing.Size(150, 30);
@@ -134,6 +137,28 @@
             this.FM_AllRemoveLabel.Click += new System.EventHandler(this.FM_AllRemoveLabel_Click);
             this.FM_AllRemoveLabel.MouseEnter += new System.EventHandler(this.FM_AllRemoveLabel_MouseEnter);
             this.FM_AllRemoveLabel.MouseLeave += new System.EventHandler(this.FM_AllRemoveLabel_MouseLeave);
+            // 
+            // FM_FileOpenLabel
+            // 
+            this.FM_FileOpenLabel.AutoSize = true;
+            this.FM_FileOpenLabel.BackColor = System.Drawing.Color.White;
+            this.FM_FileOpenLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FM_FileOpenLabel.ForeColor = System.Drawing.Color.Black;
+            this.FM_FileOpenLabel.Location = new System.Drawing.Point(3, 20);
+            this.FM_FileOpenLabel.Name = "FM_FileOpenLabel";
+            this.FM_FileOpenLabel.Size = new System.Drawing.Size(144, 30);
+            this.FM_FileOpenLabel.TabIndex = 3;
+            this.FM_FileOpenLabel.Text = "開く";
+            this.FM_FileOpenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.FM_FileOpenLabel.Click += new System.EventHandler(this.FM_FileOpenLabel_Click);
+            this.FM_FileOpenLabel.MouseEnter += new System.EventHandler(this.FM_FileOpenLabel_MouseEnter);
+            this.FM_FileOpenLabel.MouseHover += new System.EventHandler(this.FM_FileOpenLabel_MouseHover);
+            // 
+            // FM_FileOpenDialog
+            // 
+            this.FM_FileOpenDialog.Multiselect = true;
+            this.FM_FileOpenDialog.RestoreDirectory = true;
+            this.FM_FileOpenDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FM_FileOpenDialog_FileOk);
             // 
             // FileMenu
             // 
@@ -163,5 +188,7 @@
         private System.Windows.Forms.Label FM_ExitLabel;
         private System.Windows.Forms.Label FM_AllRemoveLabel;
         private System.Windows.Forms.Label FM_GoSettingsLabel;
+        private System.Windows.Forms.Label FM_FileOpenLabel;
+        private System.Windows.Forms.OpenFileDialog FM_FileOpenDialog;
     }
 }

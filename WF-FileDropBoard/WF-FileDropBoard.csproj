@@ -155,6 +155,12 @@
     <Compile Include="Setting_Part\Setting_Part_Tile.Designer.cs">
       <DependentUpon>Setting_Part_Tile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting_Part\Setting_Part_Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting_Part\Setting_Part_Info.Designer.cs">
+      <DependentUpon>Setting_Part_Info.cs</DependentUpon>
+    </Compile>
     <Compile Include="Struct_FileData.cs" />
     <EmbeddedResource Include="ErrorDialog.resx">
       <DependentUpon>ErrorDialog.cs</DependentUpon>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting_Part\Setting_Part_Tile.resx">
       <DependentUpon>Setting_Part_Tile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting_Part\Setting_Part_Info.resx">
+      <DependentUpon>Setting_Part_Info.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

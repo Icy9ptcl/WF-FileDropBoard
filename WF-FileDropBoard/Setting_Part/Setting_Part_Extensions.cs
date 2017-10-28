@@ -203,8 +203,9 @@ namespace WF_FileDropBoard {
                         }
                         ExtList.Remove(ExtS);
                         WillOverWrite = true;
-                    } catch (Exception exc2) {
-                        //新規
+                    } catch (Exception) {
+                        //新規だった
+                        WillOverWrite = false;
                     }
                     MB.ExtCol.Add(ExtS, ToCol);
                     //表にも追加する
@@ -228,7 +229,7 @@ namespace WF_FileDropBoard {
                     Setting_InColTBox.ForeColor = InputDescCol;
                     Setting_InColTBox.Text = ColInputDescS;
                     Setting_ExtAddButton.Enabled = false;
-                } catch (Exception exc) {
+                } catch (Exception) {
                     //Debug.Print("Err:{0}\non {1}",exc.ToString(),exc.TargetSite.ToString());
                     break;
                 }
@@ -282,11 +283,11 @@ namespace WF_FileDropBoard {
             Setting_ExtStatusLabel.BackColor = this.BackColor;
         }
 
-        private void Setting_ExtSelLabel_Click(object sender, EventArgs e) {
+        private void Setting_ColSelLabel_Click(object sender, EventArgs e) {
             Color C;
             try {
                 C = HexColCodetoColor(Setting_InColTBox.Text);
-            } catch (Exception exc3) {
+            } catch (Exception) {
                 C = Color.FromArgb(128, 128, 128);
             }
             colorDialog.Color = C;

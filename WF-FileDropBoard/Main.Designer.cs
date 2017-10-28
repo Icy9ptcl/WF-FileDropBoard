@@ -155,7 +155,7 @@ namespace WF_FileDropBoard
             this.NotiTLP.TabIndex = 7;
             this.NotiTLP.Visible = false;
             // 
-            // MainBox
+            // Main
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -167,7 +167,7 @@ namespace WF_FileDropBoard
             this.Controls.Add(this.DDLabel);
             this.Controls.Add(this.MainGRPBox);
             this.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Name = "MainBox";
+            this.Name = "Main";
             this.Text = "FileDropBoard";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(99)))), ((int)(((byte)(99)))));
             this.Deactivate += new System.EventHandler(this.MainBox_Deactivate);
@@ -177,7 +177,6 @@ namespace WF_FileDropBoard
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainBox_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainBox_DragEnter);
             this.DragLeave += new System.EventHandler(this.MainBox_DragLeave);
-            this.MouseEnter += new System.EventHandler(this.MainBox_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MainBox_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.MenuPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainGRPBox)).EndInit();

@@ -19,8 +19,8 @@ namespace WF_FileDropBoard
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            //Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            //Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.Run(new Main());
         }
 

@@ -37,7 +37,7 @@
             this.Setting_Ext_InExtDesc = new System.Windows.Forms.Label();
             this.Setting_Ext_InColDesc = new System.Windows.Forms.Label();
             this.Setting_ExtColPic = new System.Windows.Forms.PictureBox();
-            this.Setting_ExtSelLabel = new System.Windows.Forms.Label();
+            this.Setting_ColSelLabel = new System.Windows.Forms.Label();
             this.Setting_Ext_HeaderPanel = new System.Windows.Forms.TableLayoutPanel();
             this.Settings_ExtDescLabel = new System.Windows.Forms.Label();
             this.Setting_ExtStatusLabel = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
             this.Setting_ExtTLP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Setting_ExtTLP.Name = "Setting_ExtTLP";
             this.Setting_ExtTLP.RowCount = 4;
-            this.Setting_ExtTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.Setting_ExtTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.Setting_ExtTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.Setting_ExtTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.Setting_ExtTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -76,10 +76,10 @@
             this.Settings_Ext_Panel.AutoScroll = true;
             this.Settings_Ext_Panel.Controls.Add(this.Setting_ExtListBox);
             this.Settings_Ext_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Settings_Ext_Panel.Location = new System.Drawing.Point(0, 33);
+            this.Settings_Ext_Panel.Location = new System.Drawing.Point(0, 28);
             this.Settings_Ext_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Settings_Ext_Panel.Name = "Settings_Ext_Panel";
-            this.Settings_Ext_Panel.Size = new System.Drawing.Size(284, 138);
+            this.Settings_Ext_Panel.Size = new System.Drawing.Size(284, 143);
             this.Settings_Ext_Panel.TabIndex = 1;
             // 
             // Setting_ExtListBox
@@ -90,7 +90,7 @@
             this.Setting_ExtListBox.Location = new System.Drawing.Point(0, 0);
             this.Setting_ExtListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Setting_ExtListBox.Name = "Setting_ExtListBox";
-            this.Setting_ExtListBox.Size = new System.Drawing.Size(284, 138);
+            this.Setting_ExtListBox.Size = new System.Drawing.Size(284, 143);
             this.Setting_ExtListBox.TabIndex = 2;
             this.Setting_ExtListBox.SelectedIndexChanged += new System.EventHandler(this.Setting_ExtListBox_SelectedIndexChanged);
             // 
@@ -159,7 +159,7 @@
             this.Setting_Ext_InputPanel.Controls.Add(this.Setting_Ext_InExtDesc, 0, 0);
             this.Setting_Ext_InputPanel.Controls.Add(this.Setting_Ext_InColDesc, 0, 1);
             this.Setting_Ext_InputPanel.Controls.Add(this.Setting_ExtColPic, 2, 0);
-            this.Setting_Ext_InputPanel.Controls.Add(this.Setting_ExtSelLabel, 2, 1);
+            this.Setting_Ext_InputPanel.Controls.Add(this.Setting_ColSelLabel, 2, 1);
             this.Setting_Ext_InputPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Setting_Ext_InputPanel.Location = new System.Drawing.Point(0, 171);
             this.Setting_Ext_InputPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -229,19 +229,19 @@
             this.Setting_ExtColPic.TabIndex = 4;
             this.Setting_ExtColPic.TabStop = false;
             // 
-            // Setting_ExtSelLabel
+            // Setting_ColSelLabel
             // 
-            this.Setting_ExtSelLabel.AutoSize = true;
-            this.Setting_ExtSelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Setting_ExtSelLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Setting_ExtSelLabel.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.Setting_ExtSelLabel.Location = new System.Drawing.Point(204, 30);
-            this.Setting_ExtSelLabel.Name = "Setting_ExtSelLabel";
-            this.Setting_ExtSelLabel.Size = new System.Drawing.Size(77, 30);
-            this.Setting_ExtSelLabel.TabIndex = 5;
-            this.Setting_ExtSelLabel.Text = "色選択";
-            this.Setting_ExtSelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Setting_ExtSelLabel.Click += new System.EventHandler(this.Setting_ExtSelLabel_Click);
+            this.Setting_ColSelLabel.AutoSize = true;
+            this.Setting_ColSelLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Setting_ColSelLabel.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Setting_ColSelLabel.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.Setting_ColSelLabel.Location = new System.Drawing.Point(204, 30);
+            this.Setting_ColSelLabel.Name = "Setting_ColSelLabel";
+            this.Setting_ColSelLabel.Size = new System.Drawing.Size(77, 30);
+            this.Setting_ColSelLabel.TabIndex = 5;
+            this.Setting_ColSelLabel.Text = "色選択";
+            this.Setting_ColSelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Setting_ColSelLabel.Click += new System.EventHandler(this.Setting_ColSelLabel_Click);
             // 
             // Setting_Ext_HeaderPanel
             // 
@@ -256,7 +256,7 @@
             this.Setting_Ext_HeaderPanel.Name = "Setting_Ext_HeaderPanel";
             this.Setting_Ext_HeaderPanel.RowCount = 1;
             this.Setting_Ext_HeaderPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.Setting_Ext_HeaderPanel.Size = new System.Drawing.Size(284, 33);
+            this.Setting_Ext_HeaderPanel.Size = new System.Drawing.Size(284, 28);
             this.Setting_Ext_HeaderPanel.TabIndex = 4;
             // 
             // Settings_ExtDescLabel
@@ -266,7 +266,7 @@
             this.Settings_ExtDescLabel.Font = new System.Drawing.Font("メイリオ", 11F);
             this.Settings_ExtDescLabel.Location = new System.Drawing.Point(3, 0);
             this.Settings_ExtDescLabel.Name = "Settings_ExtDescLabel";
-            this.Settings_ExtDescLabel.Size = new System.Drawing.Size(42, 33);
+            this.Settings_ExtDescLabel.Size = new System.Drawing.Size(42, 28);
             this.Settings_ExtDescLabel.TabIndex = 1;
             this.Settings_ExtDescLabel.Text = "色";
             this.Settings_ExtDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -278,7 +278,7 @@
             this.Setting_ExtStatusLabel.Location = new System.Drawing.Point(51, 3);
             this.Setting_ExtStatusLabel.Margin = new System.Windows.Forms.Padding(3);
             this.Setting_ExtStatusLabel.Name = "Setting_ExtStatusLabel";
-            this.Setting_ExtStatusLabel.Size = new System.Drawing.Size(230, 27);
+            this.Setting_ExtStatusLabel.Size = new System.Drawing.Size(230, 22);
             this.Setting_ExtStatusLabel.TabIndex = 2;
             this.Setting_ExtStatusLabel.Text = "ステータス";
             this.Setting_ExtStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -333,7 +333,7 @@
         private System.Windows.Forms.Label Setting_Ext_InExtDesc;
         private System.Windows.Forms.Label Setting_Ext_InColDesc;
         private System.Windows.Forms.PictureBox Setting_ExtColPic;
-        private System.Windows.Forms.Label Setting_ExtSelLabel;
+        private System.Windows.Forms.Label Setting_ColSelLabel;
         private System.Windows.Forms.TableLayoutPanel Setting_Ext_HeaderPanel;
         private System.Windows.Forms.Label Settings_ExtDescLabel;
         private System.Windows.Forms.Label Setting_ExtStatusLabel;

@@ -38,28 +38,28 @@
             // 
             this.Setting_TileTLP.ColumnCount = 1;
             this.Setting_TileTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.Setting_TileTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.Setting_TileTLP.Controls.Add(this.Settings_TileDescLabel, 0, 0);
             this.Setting_TileTLP.Controls.Add(this.Settings_Tile_Panel, 0, 1);
             this.Setting_TileTLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Setting_TileTLP.Location = new System.Drawing.Point(0, 0);
             this.Setting_TileTLP.Name = "Setting_TileTLP";
             this.Setting_TileTLP.RowCount = 2;
-            this.Setting_TileTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.Setting_TileTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.Setting_TileTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.Setting_TileTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.Setting_TileTLP.Size = new System.Drawing.Size(284, 261);
             this.Setting_TileTLP.TabIndex = 2;
             // 
             // Settings_TileDescLabel
             // 
             this.Settings_TileDescLabel.AutoSize = true;
+            this.Settings_TileDescLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Settings_TileDescLabel.Font = new System.Drawing.Font("メイリオ", 11F);
             this.Settings_TileDescLabel.Location = new System.Drawing.Point(3, 0);
             this.Settings_TileDescLabel.Name = "Settings_TileDescLabel";
-            this.Settings_TileDescLabel.Size = new System.Drawing.Size(55, 22);
+            this.Settings_TileDescLabel.Size = new System.Drawing.Size(278, 28);
             this.Settings_TileDescLabel.TabIndex = 0;
             this.Settings_TileDescLabel.Text = "タイル";
+            this.Settings_TileDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Settings_Tile_Panel
             // 
@@ -69,10 +69,10 @@
             this.Settings_Tile_Panel.Controls.Add(this.Settings_Tile_SelectDateModeDescLabel);
             this.Settings_Tile_Panel.Controls.Add(this.Settings_Tile_ShowPreviewCB);
             this.Settings_Tile_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Settings_Tile_Panel.Location = new System.Drawing.Point(0, 22);
+            this.Settings_Tile_Panel.Location = new System.Drawing.Point(0, 28);
             this.Settings_Tile_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Settings_Tile_Panel.Name = "Settings_Tile_Panel";
-            this.Settings_Tile_Panel.Size = new System.Drawing.Size(284, 239);
+            this.Settings_Tile_Panel.Size = new System.Drawing.Size(284, 233);
             this.Settings_Tile_Panel.TabIndex = 1;
             // 
             // Settings_Tile_SelDateMode

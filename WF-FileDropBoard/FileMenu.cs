@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Form1;
 
 namespace WF_FileDropBoard {
     public partial class FileMenu : Form {
@@ -330,6 +331,41 @@ namespace WF_FileDropBoard {
 
         private void FM_GoSettingsLabel_MouseLeave(object sender, EventArgs e) {
             FM_GoSettingsLabel.BackColor = UnHoverCol;
+        }
+
+        private void FM_FileOpenLabel_Click(object sender, EventArgs e) {
+            FM_FileOpenDialog.ShowDialog();
+        }
+
+        private void FM_FileOpenLabel_MouseEnter(object sender, EventArgs e) {
+            FM_FileOpenLabel.BackColor = HoverCol;
+        }
+
+        private void FM_FileOpenLabel_MouseHover(object sender, EventArgs e) {
+            FM_FileOpenLabel.BackColor = UnHoverCol;
+        }
+
+        private void FM_FileOpenDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e) {
+
+            int Count = 0;　//カウント
+            int FileAmount = FM_FileOpenDialog.FileNames.Length; //ファイルの数
+            int WidthPadding = 10; //ウィンドウからの余白
+            int AvaiableWidth = this.Width - WidthPadding * 2 - MB.TileWidth; //設置可能な枠のXサイズ
+            int WidthPerFile = AvaiableWidth / FileAmount; //1ファイルあたりの余白
+
+            foreach (string FileItemName in FM_FileOpenDialog.FileNames) {
+                FileData TempFileData = new FileData {
+                    FilePath = FileItemName,
+                    PosX = (int)(WidthPadding + WidthPerFile * Count),
+                    PosY = WidthPadding
+                };
+                //非同期にする必要が無いと見たので
+                //await を入れていない
+                MB.AddFile(TempFileData);
+                Count++;
+            }
+
+            MB.MainGRPBox.Refresh();
         }
     }
 }
