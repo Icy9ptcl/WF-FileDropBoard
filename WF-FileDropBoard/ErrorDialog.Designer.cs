@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorDialog));
             this.MainTLP = new System.Windows.Forms.TableLayoutPanel();
             this.ErrorDescLabel = new System.Windows.Forms.Label();
             this.BodyTLP = new System.Windows.Forms.TableLayoutPanel();
@@ -170,6 +171,7 @@
             this.Controls.Add(this.MainTLP);
             this.Font = new System.Drawing.Font("メイリオ", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

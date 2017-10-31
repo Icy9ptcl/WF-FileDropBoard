@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Setting));
             this.SettingsTLP = new System.Windows.Forms.TableLayoutPanel();
             this.Settings_PageControlTLP = new System.Windows.Forms.TableLayoutPanel();
             this.Settings_PageControl_L = new System.Windows.Forms.Label();
@@ -168,6 +169,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.SettingsTLP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Setting";
             this.Text = "Settings";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Settings_FormClosed);
