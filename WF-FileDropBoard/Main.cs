@@ -145,7 +145,6 @@ namespace WF_FileDropBoard {
             } else { //そもそも複製しようとしてた
                 e.Effect = DragDropEffects.None;
             }
-
         }
 
         private void MainBox_DragLeave(object sender, EventArgs e) {
@@ -181,7 +180,6 @@ namespace WF_FileDropBoard {
             //} else {
             //    DenyDragging = false;
             //}
-
         }
 
         /// <summary>
@@ -231,6 +229,7 @@ namespace WF_FileDropBoard {
         // MainGRPBox : グラフィック画面
         //
         private void MainGRPBox_Paint(object sender, PaintEventArgs e) {
+            
             Graphics GRP = e.Graphics;
             GRP.Clear(Color.FromArgb(255, 255, 255, 255));
             // GRP.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -259,6 +258,7 @@ namespace WF_FileDropBoard {
                     RectangleF PrevRect = new RectangleF(WriteFileData.PosX, WriteFileData.PosY + NameSize.Height, TileWidth, WritableY - NameSize.Height);
                     GRP.DrawString(WriteFileData.FilePreviewS, this.Font, FilePreviewBrush, PrevRect);
                 }
+
                 //日付...描画する？
                 if (File_AlwaysShowDate == true) {
                     string WriteDateS = "";
@@ -295,11 +295,12 @@ namespace WF_FileDropBoard {
 
                     RectangleF DateRect = new RectangleF(WriteFileData.PosX, WriteFileData.PosY + TileHeight - this.Font.Height, TileWidth, this.Font.Height);
                     GRP.DrawString(WriteDateS, this.Font, FilePreviewBrush, DateRect);
-                }
 
+                }
                 FilePreviewBrush.Dispose();
                 FileBackBrush.Dispose();
                 FileNameBrush.Dispose();
+
             }
             if (FileListS.Count > 0) {
                 DDLabel.Visible = false;
@@ -307,7 +308,8 @@ namespace WF_FileDropBoard {
                 DDLabel.Visible = true;
             }
             //}
-
+            //GRP.Dispose();
+            
         }
 
         private void MainGRPBox_Click(object sender, EventArgs e) {
@@ -483,16 +485,14 @@ namespace WF_FileDropBoard {
                 MenuGRP.FillRectangle(MenuButtonBarBrush, 20, 20 + i * 8, 22, 4);
             }
 
-            MenuButtonShadowBrush.Dispose();
             MenuButtonBrush.Dispose();
             MenuButtonBarBrush.Dispose();
-
+            MenuButtonShadowBrush.Dispose();
             //Debug.Print("Painted");
         }
 
         private void MenuPic_Click(object sender, EventArgs e) {
             //Debug.Print("Clicked");
-            //throw new NullReferenceException();
             FM = new FileMenu(this) {
                 TopLevel = false,
                 Visible = false
@@ -510,7 +510,6 @@ namespace WF_FileDropBoard {
         }
 
         private void MenuProductionTimer_Tick(object sender, EventArgs e) {
-
             FM.Location = new Point((int)( Width - ( MenuProductionTime * 18.75 ) ), 0);
             //Debug.Print(MenuProductionTime.ToString());
 
@@ -600,6 +599,7 @@ namespace WF_FileDropBoard {
         }
 
         private void DragUpdateTimer_Tick(object sender, EventArgs e) {
+
             FileData FD = FileListS[SelectedFileNum];
             FileData ToFD = FD;
             Point ToPosition = PointToClient(Cursor.Position);
@@ -616,6 +616,7 @@ namespace WF_FileDropBoard {
                 //DenyDragging = true;
                 DragUpdateTimer.Stop();
             }
+            //ドラッグしてる - ゴミ箱表示
             if (MouseDragging == true) {
                 toX = Math.Min(Math.Max(toX, 0), Width - TileWidth);
                 toY = Math.Min(Math.Max(toY, 0), Height - TileHeight);
@@ -624,6 +625,7 @@ namespace WF_FileDropBoard {
                 if (( ToPosition.X > DisposeBox.Location.X ) && ( ToPosition.X < DisposeBox.Location.X + DisposeBox.Size.Width ) && ( ToPosition.Y > DisposeBox.Location.Y ) && ( ToPosition.Y < DisposeBox.Location.Y + DisposeBox.Size.Height )) {
                     DisposeBox.BackColor = Color.Red;
                 } else {
+                    //しない
                     DisposeBox.BackColor = Color.White;
                 }
                 //Debug.Print("{0}/{1},{2}/{3}", toX,Width - TileWidth, toY,Height - TileHeight);
@@ -633,8 +635,8 @@ namespace WF_FileDropBoard {
                 DragUpdateTimer.Start();
             }
             //Debug.Print("{0},{1}", toX, toY);
-            MainGRPBox.Invalidate();
 
+            MainGRPBox.Invalidate();
         }
 
         //プレビューを返すだけ
@@ -736,11 +738,10 @@ namespace WF_FileDropBoard {
 
             LoadSettings();
         }
-        /*
+
         private void InfoUpdateTimer_Tick(object sender, EventArgs e) {
 
         }
-        */
 
         private void InfoCloseTimer_Tick(object sender, EventArgs e) {
             if (InfoProductionMode == ProductionModeE.Wait) {
@@ -796,7 +797,6 @@ namespace WF_FileDropBoard {
 
             SaveNotiTLP.Location = new Point(0, (int)(this.Height - (((double)InfoLoopCount) / (double)InfoMaxLoopCount) * 26 - SystemInformation.CaptionHeight - 16));
             //Debug.Print("{0}", (int)( this.Height - ( ( (double)InfoLoopCount ) / (double)InfoMaxLoopCount ) * 26 - SystemInformation.CaptionHeight - 16 ));
-
         }
 
         /// <summary>
@@ -833,11 +833,16 @@ namespace WF_FileDropBoard {
             if (IsSettingsOpenB == false) {
                 WF_FileDropBoard.Setting ST = new WF_FileDropBoard.Setting(this);
                 ST.Show();
+                Point PT = this.Location;
+                PT.X += 16;
+                PT.Y += 16;
+                ST.Location = PT;
                 IsSettingsOpenB = true;
                 return true;
             } else {
                 return false;
             }
+            return false;
         }
 
         /// <summary>
