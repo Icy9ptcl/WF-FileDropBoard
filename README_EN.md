@@ -18,4 +18,6 @@ Put and take files when you need them.
   When you take file,You don't have to open explorer.
   
 ## Requirements
-  **.NET Framework 4.5.2** is required.
+  **.NET Framework 4.5.2** is required when you run or build this program.  
+ (idk is it can work on before .NET Framework version)
+
