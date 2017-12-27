@@ -85,11 +85,11 @@ namespace WF_FileDropBoard {
 
             }
 
-            try {
-                DataIO.SaveSettings<Configuration>(MB.FilePath + MB.FileName, CF);
-            } catch (Exception e3) {
-                SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
-            }
+           // try {
+                DataIO.SaveSettings(MB.FilePath + MB.FileName, CF);
+           // } catch (Exception e3) {
+                //SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
+           // }
 
             //無理やり通知を閉じる
             MB.InfoCloseTimer.Stop();

@@ -1,26 +1,43 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using FData;
+using Form1;
 using System.Runtime.Serialization;
 
 namespace WF_FileDropBoard {
     /// <summary>
     /// MainBox の設定を保存するクラス。
     /// </summary>
-    public class Configuration {
-        public string VersionS;
-        public int VersionNumS;
-        public bool File_AlwaysShowDate;
-        public Main.File_ShowDateModeE File_ShowDateMode;
-        public bool File_ShowPreview;
-        public Dictionary<String, Color> ExtCol;
+    [DataContract(Name = "Configurations")]
+    public class Configuration : IExtensibleDataObject {
+        private ExtensionDataObject _extensionData;
+        public ExtensionDataObject ExtensionData {
+            get {
+                return _extensionData;
+            }
+            set {
+                _extensionData = value;
+            }
 
-        //public List<FileData> FileListS;
+        }
+
+        [DataMember(Order = 0)]
+        private string VersionS;
+        [DataMember(Order = 1)]
+        private int VersionNumS;
+        [DataMember(Order = 2)]
+        private bool File_AlwaysShowDate;
+            [DataMember(Order = 3)]
+        private Main.File_ShowDateModeE File_ShowDateMode;
+        [DataMember(Order = 4)]
+        private bool File_ShowPreview;
+        [DataMember(Order = 5)]
+        private Dictionary<String, Color> ExtCol;
+        //private List<FileData> FileListS;
         //Dictionary<String, Color> ExtCol;
         //HashSet<int> UsedFileNumS;
-        public List<FileData> FileListS;
+        [IgnoreDataMember]
+        private List<FileData> FileListS;
         public Main MB;
         /*
         public Configurations() {
@@ -30,6 +47,7 @@ namespace WF_FileDropBoard {
         }
 
         */
+
         public Configuration(Main MB) {
             this.MB = MB;
         }

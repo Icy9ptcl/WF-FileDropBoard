@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Form1;
+using FData;
 
 namespace WF_FileDropBoard {
     public partial class FileMenu : Form {

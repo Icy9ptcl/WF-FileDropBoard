@@ -15,12 +15,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using Form1;
+using FData;
 using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using System.Xml;
 
-namespace WF_FileDropBoard {
+namespace WF_FileDropBoard
+{
     public partial class Main : Form {
 
         FileMenu FM;
@@ -30,7 +29,7 @@ namespace WF_FileDropBoard {
         public const int VerNum = 1;
 
         public string FilePath = @"%AppData%\Hiro-Project\FileDropBoard\";
-        public string FileName = "Setting.xml";
+        public string FileName = "Setting.json";
 
         private int MenuColor_R = 0;
         private int MenuColor_G = 150;
@@ -57,16 +56,8 @@ namespace WF_FileDropBoard {
         private bool IsMenuOpenB = false;
         public bool IsSettingsOpenB = false;
         //FileData FileListS = new FileData();
-        private List<FileData> fileListS = new List<FileData>();
 
-        public List<FileData> FileListS {
-            get {
-                return fileListS;
-            }
-            set {
-                fileListS = value;
-            }
-        }
+        public List<FileData> FileListS = new List<FileData>();
 
 
         //デフォルトの拡張子別タイル色の設定
@@ -373,7 +364,7 @@ namespace WF_FileDropBoard {
                 int TileY = TempFD.PosY;
 
                 if (( CursorX > TileX ) && ( CursorX < ( TileX + DisposeBox.Size.Width ) ) && ( CursorY > TileY ) && ( CursorY < ( TileY + DisposeBox.Size.Height ) )) {
-                    fileListS.RemoveAt(SelectedFileNum);
+                    FileListS.RemoveAt(SelectedFileNum);
                 }
             }
             //DenyDragging = false;
@@ -842,7 +833,7 @@ namespace WF_FileDropBoard {
             } else {
                 return false;
             }
-            return false;
+            //return false;
         }
 
         /// <summary>
@@ -856,47 +847,12 @@ namespace WF_FileDropBoard {
 
         public void LoadSettings() {
             if (File.Exists(FilePath + FileName)) {
-                Configuration CF;
                 DataIO dataIO = new DataIO();
-                CF = DataIO.LoadSettings<Configuration>(FilePath + FileName);
+                Configuration CF = DataIO.LoadSettings(FilePath + FileName);
                 CF.MB = this;
                 CF.ExportSettings();
             } else {
                 Directory.CreateDirectory( FilePath );
-            }
-        }
-
-    }
-
-    /// <summary>
-    /// 設定を読み込んだり書き込んだりするクラス。
-    /// </summary>
-    public class DataIO {
-        /// <summary>
-        /// ディスクに XML として設定を書き込みます。
-        /// </summary>
-        /// <typeparam name="T">書き込むクラスの型。</typeparam>
-        /// <param name="FilePath">ファイルのパス。</param>
-        /// <param name="settings">書き込むクラスのインスタンス。</param>
-        public static void SaveSettings<T>(string FilePath, T settings) {
-            DataContractSerializer sr = new DataContractSerializer(typeof(T));
-            XmlWriterSettings stg = new XmlWriterSettings();
-            stg.Encoding = new UTF8Encoding();
-            using (XmlWriter xw = XmlWriter.Create(FilePath)) {
-                sr.WriteObject(xw, settings);
-            }
-        }
-
-        /// <summary>
-        /// ディスクから XML として保存された設定を読み込みます。
-        /// </summary>
-        /// <typeparam name="T">書き込むクラスの型。</typeparam>
-        /// <param name="FilePath">ファイルのパス。</param>
-        /// <returns></returns>
-        public static T LoadSettings<T>(string FilePath) {
-            DataContractSerializer sr = new DataContractSerializer(typeof(T));
-            using (XmlReader xr = XmlReader.Create(FilePath)) {
-                return (T)sr.ReadObject(xr);
             }
         }
 

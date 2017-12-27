@@ -9,6 +9,7 @@ namespace WF_FileDropBoard {
 
         public Setting_Part_Info(Main MB) {
             InitializeComponent();
+            this.MB = MB;
         }
 
         private void Setting_Part_Info_Load(object sender, EventArgs e) {

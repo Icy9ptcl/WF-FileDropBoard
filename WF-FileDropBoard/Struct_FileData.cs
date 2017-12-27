@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Form1 {
+namespace FData {
     /// <summary>
     /// ボードに追加できるファイルのデータ。
     /// </summary>
