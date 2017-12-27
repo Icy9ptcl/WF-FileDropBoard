@@ -40,11 +40,10 @@ namespace WF_FileDropBoard
         }
 
         /// <summary>
-        /// ディスクから XML として保存された設定を読み込みます。
+        /// ディスクから JSON として保存された設定を読み込みます。
         /// </summary>
-        /// <typeparam name="T">書き込むクラスの型。</typeparam>
         /// <param name="FilePath">ファイルのパス。</param>
-        /// <returns></returns>
+        /// <returns>読み込まれた設定が格納されている Configuration クラス。</returns>
         public static Configuration LoadSettings(string FilePath) {
             //JObject JO = new JObject();
             string dat;

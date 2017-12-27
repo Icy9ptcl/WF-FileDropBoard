@@ -70,10 +70,12 @@ namespace FData {
         }
 
         /// <summary>
-        /// ファイルの最終更新時間(変更可能)。
+        /// ファイルの最終更新時間。
         /// </summary>
         public System.DateTime FileLastUpdateTime {
-            get; set;
+            get {
+                return System.IO.File.GetLastWriteTime(this.FilePath);
+            }
         }
     }
 }

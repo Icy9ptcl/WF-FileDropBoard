@@ -46,7 +46,7 @@ namespace WF_FileDropBoard {
             MB.MenuProductionMode = Main.ProductionModeE.Leave;
             MB.MenuProductionTimer.Start();
 
-            if (this.MB.InfoProductionMode == Main.ProductionModeE.None) { //通知が動いてなければ
+            if (this.MB.NotiProductionMode == Main.ProductionModeE.None) { //通知が動いてなければ
                 //コントロールの構成
                 // --------------------------------
                 // | DescLB               |ClickLB|
@@ -145,7 +145,7 @@ namespace WF_FileDropBoard {
             MB.MenuProductionMode = Main.ProductionModeE.Leave;
             MB.MenuProductionTimer.Start();
 
-            if (this.MB.InfoProductionMode == Main.ProductionModeE.None) { //通知が動いてなければ
+            if (this.MB.NotiProductionMode == Main.ProductionModeE.None) { //通知が動いてなければ
                 //コントロールの構成
                 // --------------------------------
                 // | DescLB               |ClickLB|
@@ -229,9 +229,9 @@ namespace WF_FileDropBoard {
             //描画してる領域を更新
             MB.MainGRPBox.Invalidate();
             //無理やり通知を閉じる
-            MB.InfoCloseTimer.Stop();
-            MB.InfoCloseTimer.Interval = 1;
-            MB.InfoCloseTimer.Start();
+            MB.NotiCloseTimer.Stop();
+            MB.NotiCloseTimer.Interval = 1;
+            MB.NotiCloseTimer.Start();
 
 
             //除外したことを伝える
@@ -281,9 +281,9 @@ namespace WF_FileDropBoard {
                 //設定がすでに開いている
                 this.MB.FileListS.Clear();
                 //無理やり通知を閉じる
-                MB.InfoCloseTimer.Stop();
-                MB.InfoCloseTimer.Interval = 1;
-                MB.InfoCloseTimer.Start();
+                MB.NotiCloseTimer.Stop();
+                MB.NotiCloseTimer.Interval = 1;
+                MB.NotiCloseTimer.Start();
                 //描画してる領域を更新
                 MB.MainGRPBox.Invalidate();
 

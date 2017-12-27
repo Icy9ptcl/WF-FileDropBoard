@@ -77,8 +77,8 @@ namespace WF_FileDropBoard
 
         //タイルの大きさの設定
         //変更できるようにするよ
-        public int TileWidth = 100;
-        public int TileHeight = 100;
+        public int TileWidth = 110;
+        public int TileHeight = 110;
 
         private int TileDiffX;
         private int TileDiffY;
@@ -91,7 +91,7 @@ namespace WF_FileDropBoard
         private int InfoLoopCount = 0;
         private int InfoMaxLoopCount = 10;
         public List<string> InfoUsingControls = new List<string>();
-        public ProductionModeE InfoProductionMode = ProductionModeE.None;
+        public ProductionModeE NotiProductionMode = ProductionModeE.None;
 
         private System.Windows.Forms.TableLayoutPanel SaveNotiTLP;
         public List<string> Logs = new List<string>();
@@ -192,7 +192,7 @@ namespace WF_FileDropBoard
                     CurrentFileNum++;
                 }
             }
-            AddFileData.FileLastUpdateTime = new System.IO.FileInfo(AddFileData.FilePath + AddFileData.FileName).LastWriteTime;
+            //AddFileData.FileLastUpdateTime = new System.IO.FileInfo(AddFileData.FilePath + AddFileData.FileName).LastWriteTime;
             //                CurrentFileNum++;
             FileListS.Add(AddFileData);
             FileData FD = FileListS[FileListS.Count - 1];
@@ -213,7 +213,6 @@ namespace WF_FileDropBoard
             SelectedFileNum = -1;
             DragUpdateTimer.Stop();
             MainGRPBox.Invalidate();
-            MenuCloseTimer.Start();
         }
 
         //
@@ -311,9 +310,38 @@ namespace WF_FileDropBoard
                 MenuProductionTimer.Start();
             }
             //無理やり通知を閉じる
-            InfoCloseTimer.Stop();
-            InfoCloseTimer.Interval = 1;
-            InfoCloseTimer.Start();
+            NotiCloseTimer.Stop();
+            NotiCloseTimer.Interval = 1;
+            NotiCloseTimer.Start();
+        }
+
+        private void MainGRPBox_MouseUp(object sender, MouseEventArgs e) {
+            MouseDragging = false;
+            DisposeBox.Visible = false;
+            if (SelectedFileNum != -1) {
+                FileData TempFD = FileListS[SelectedFileNum];
+                Point CursorPosition = PointToClient(Cursor.Position);
+                int CursorX = DisposeBox.Location.X;
+                int CursorY = DisposeBox.Location.Y;
+                int TileX = TempFD.PosX;
+                int TileY = TempFD.PosY;
+
+                if (( CursorX > TileX ) && ( CursorX < ( TileX + DisposeBox.Size.Width ) ) && ( CursorY > TileY ) && ( CursorY < ( TileY + DisposeBox.Size.Height ) )) {
+                    FileListS.RemoveAt(SelectedFileNum);
+                }
+            }
+            //DenyDragging = false;
+            if (AlreadyTimed == false) {
+                // クリックされたときの処理として
+            } else {
+                // ドラッグおしまい
+
+            }
+
+            SelectedFileNum = -1;
+            DragUpdateTimer.Stop();
+            MainGRPBox.Invalidate();
+            //Debug.Print("Dragging Stopped");
         }
 
         private void MainGRPBox_MouseDown(object sender, MouseEventArgs e) {
@@ -350,35 +378,6 @@ namespace WF_FileDropBoard
                     break;
                 }
             }
-        }
-
-        private void MainGRPBox_MouseUp(object sender, MouseEventArgs e) {
-            MouseDragging = false;
-            DisposeBox.Visible = false;
-            if (SelectedFileNum != -1) {
-                FileData TempFD = FileListS[SelectedFileNum];
-                Point CursorPosition = PointToClient(Cursor.Position);
-                int CursorX = DisposeBox.Location.X;
-                int CursorY = DisposeBox.Location.Y;
-                int TileX = TempFD.PosX;
-                int TileY = TempFD.PosY;
-
-                if (( CursorX > TileX ) && ( CursorX < ( TileX + DisposeBox.Size.Width ) ) && ( CursorY > TileY ) && ( CursorY < ( TileY + DisposeBox.Size.Height ) )) {
-                    FileListS.RemoveAt(SelectedFileNum);
-                }
-            }
-            //DenyDragging = false;
-            if (AlreadyTimed == false) {
-                // クリックされたときの処理として
-            } else {
-                // ドラッグおしまい
-
-            }
-
-            SelectedFileNum = -1;
-            DragUpdateTimer.Stop();
-            MainGRPBox.Invalidate();
-            //Debug.Print("Dragging Stopped");
         }
 
         private void MenuPic_MouseEnter(object sender, EventArgs e) {
@@ -530,10 +529,6 @@ namespace WF_FileDropBoard
             }
         }
 
-        private void MenuCloseTimer_Tick(object sender, EventArgs e) {
-
-        }
-
         private void DragProductionTimer_Tick(object sender, EventArgs e) {
             //Graphics GRP = CreateGraphics();
             //GRP.Clear(Color.FromArgb(255, 255, 255, 255));
@@ -574,12 +569,6 @@ namespace WF_FileDropBoard
 
             }
         }
-
-        private void MainGRPBox_DragDrop(object sender, DragEventArgs e) {
-
-        }
-
-
 
         private void TileDragTimer_Tick(object sender, EventArgs e) {
             AlreadyTimed = true;
@@ -693,8 +682,6 @@ namespace WF_FileDropBoard
                 }
             }
 
-            //PreviewedStringS = PreviewedStringS + FileLastWriteDateS; // 時間文字列にくっつける
-            //PreviewedStringS = PreviewedStringS; // 無意味だった
 
             TempFD.FilePreviewS = PreviewedStringS;
             FileListS[Index] = TempFD;
@@ -702,14 +689,6 @@ namespace WF_FileDropBoard
             //Debug.Print("Completed:returned {0}",PreviewedStringS);
             return PreviewedStringS;
             //}
-        }
-
-        private void GetPreviewWorker_DoWork(object sender, DoWorkEventArgs e) {
-
-        }
-
-        private void GetPreviewWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-
         }
 
         private void MainBox_LocationChanged(object sender, EventArgs e) {
@@ -733,19 +712,19 @@ namespace WF_FileDropBoard
 
         }
 
-        private void InfoCloseTimer_Tick(object sender, EventArgs e) {
-            if (InfoProductionMode == ProductionModeE.Wait) {
-                InfoProductionTimer.Start();
-                InfoCloseTimer.Stop();
-                InfoProductionMode = ProductionModeE.Leave;
+        private void NotiCloseTimer_Tick(object sender, EventArgs e) {
+            if (NotiProductionMode == ProductionModeE.Wait) {
+                NotiProductionTimer.Start();
+                NotiCloseTimer.Stop();
+                NotiProductionMode = ProductionModeE.Leave;
             }
         }
 
         //下から通知が上がってくるシステム
-        private void InfoProductionTimer_Tick(object sender, EventArgs e) {
+        private void NotiProductionTimer_Tick(object sender, EventArgs e) {
             //Debug.Print("{0}",InfoLoopCount);
             bool WillContinue = true;
-            switch (InfoProductionMode) {
+            switch (NotiProductionMode) {
                 case ProductionModeE.None:
                 WillContinue = false;
                 break;
@@ -753,14 +732,14 @@ namespace WF_FileDropBoard
                 case ProductionModeE.Enter:
                 InfoLoopCount++;
                 if (InfoLoopCount == InfoMaxLoopCount) {
-                    InfoProductionMode = ProductionModeE.Wait;
+                    NotiProductionMode = ProductionModeE.Wait;
                 }
                 break;
 
                 case ProductionModeE.Leave:
                 InfoLoopCount--;
                 if (InfoLoopCount == 0) {
-                    InfoProductionMode = ProductionModeE.None;
+                    NotiProductionMode = ProductionModeE.None;
                     WillContinue = false;
                     // 終わったので消してみる
                     foreach (string Name in InfoUsingControls) {
@@ -780,9 +759,9 @@ namespace WF_FileDropBoard
             }
 
             if (WillContinue == true) {
-                InfoProductionTimer.Start();
+                NotiProductionTimer.Start();
             } else {
-                InfoProductionTimer.Stop();
+                NotiProductionTimer.Stop();
             }
 
             SaveNotiTLP.Location = new Point(0, (int)(this.Height - (((double)InfoLoopCount) / (double)InfoMaxLoopCount) * 26 - SystemInformation.CaptionHeight - 16));
@@ -799,20 +778,20 @@ namespace WF_FileDropBoard
         /// <param name="TimeSec">通知を表示する秒数。</param>
 
         public void ShowInfo(TableLayoutPanel ObjectTLP,List<String> UsedControls,int TimeSec) {
-            InfoCloseTimer.Stop();
-            InfoProductionTimer.Stop();
-            InfoProductionMode = ProductionModeE.Enter;
+            NotiCloseTimer.Stop();
+            NotiProductionTimer.Stop();
+            NotiProductionMode = ProductionModeE.Enter;
             InfoLoopCount = 0;
             //サイズ設定
             ObjectTLP.Location = new System.Drawing.Point(0, this.Height - 26);
             ObjectTLP.Size = new System.Drawing.Size(this.Width, 26);
             ObjectTLP.Visible = true;
             //自動的に閉じてくれそうなタイマー
-            InfoCloseTimer.Interval = TimeSec * 1000;
-            InfoCloseTimer.Start();
+            NotiCloseTimer.Interval = TimeSec * 1000;
+            NotiCloseTimer.Start();
             //演出用
-            InfoProductionMode = ProductionModeE.Enter;
-            InfoProductionTimer.Start();
+            NotiProductionMode = ProductionModeE.Enter;
+            NotiProductionTimer.Start();
             //参照を残す
             SaveNotiTLP = ObjectTLP;
             //リソースを開放できるようにリストを保持しておく
@@ -913,16 +892,16 @@ namespace WF_FileDropBoard
 
             }
 
-            // try {
+             try {
             DataIO.SaveSettings(MB.FilePath + MB.FileName, CF);
-            // } catch (Exception e3) {
-            //SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
-            // }
+             } catch (Exception e3) {
+            SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
+             }
 
             //無理やり通知を閉じる
-            MB.InfoCloseTimer.Stop();
-            MB.InfoCloseTimer.Interval = 1;
-            MB.InfoCloseTimer.Start();
+            MB.NotiCloseTimer.Stop();
+            MB.NotiCloseTimer.Interval = 1;
+            MB.NotiCloseTimer.Start();
             DescLB.Dispose();
 
             //コントロールの構成

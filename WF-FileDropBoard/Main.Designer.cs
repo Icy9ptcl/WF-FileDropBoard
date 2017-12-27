@@ -36,12 +36,11 @@ namespace WF_FileDropBoard
             this.MenuButtonProductionTimer = new System.Windows.Forms.Timer(this.components);
             this.MenuPic = new System.Windows.Forms.PictureBox();
             this.MenuProductionTimer = new System.Windows.Forms.Timer(this.components);
-            this.MenuCloseTimer = new System.Windows.Forms.Timer(this.components);
             this.DragProductionTimer = new System.Windows.Forms.Timer(this.components);
             this.TileDragTimer = new System.Windows.Forms.Timer(this.components);
             this.DragUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.InfoProductionTimer = new System.Windows.Forms.Timer(this.components);
-            this.InfoCloseTimer = new System.Windows.Forms.Timer(this.components);
+            this.NotiProductionTimer = new System.Windows.Forms.Timer(this.components);
+            this.NotiCloseTimer = new System.Windows.Forms.Timer(this.components);
             this.MainGRPBox = new System.Windows.Forms.PictureBox();
             this.DisposeBox = new System.Windows.Forms.PictureBox();
             this.NotiTLP = new System.Windows.Forms.TableLayoutPanel();
@@ -86,10 +85,6 @@ namespace WF_FileDropBoard
             this.MenuProductionTimer.Interval = 10;
             this.MenuProductionTimer.Tick += new System.EventHandler(this.MenuProductionTimer_Tick);
             // 
-            // MenuCloseTimer
-            // 
-            this.MenuCloseTimer.Tick += new System.EventHandler(this.MenuCloseTimer_Tick);
-            // 
             // DragProductionTimer
             // 
             this.DragProductionTimer.Interval = 10;
@@ -105,15 +100,15 @@ namespace WF_FileDropBoard
             this.DragUpdateTimer.Interval = 15;
             this.DragUpdateTimer.Tick += new System.EventHandler(this.DragUpdateTimer_Tick);
             // 
-            // InfoProductionTimer
+            // NotiProductionTimer
             // 
-            this.InfoProductionTimer.Interval = 15;
-            this.InfoProductionTimer.Tick += new System.EventHandler(this.InfoProductionTimer_Tick);
+            this.NotiProductionTimer.Interval = 15;
+            this.NotiProductionTimer.Tick += new System.EventHandler(this.NotiProductionTimer_Tick);
             // 
-            // InfoCloseTimer
+            // NotiCloseTimer
             // 
-            this.InfoCloseTimer.Interval = 10000;
-            this.InfoCloseTimer.Tick += new System.EventHandler(this.InfoCloseTimer_Tick);
+            this.NotiCloseTimer.Interval = 10000;
+            this.NotiCloseTimer.Tick += new System.EventHandler(this.NotiCloseTimer_Tick);
             // 
             // MainGRPBox
             // 
@@ -125,7 +120,6 @@ namespace WF_FileDropBoard
             this.MainGRPBox.TabIndex = 5;
             this.MainGRPBox.TabStop = false;
             this.MainGRPBox.Click += new System.EventHandler(this.MainGRPBox_Click);
-            this.MainGRPBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainGRPBox_DragDrop);
             this.MainGRPBox.Paint += new System.Windows.Forms.PaintEventHandler(this.MainGRPBox_Paint);
             this.MainGRPBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainGRPBox_MouseDown);
             this.MainGRPBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainGRPBox_MouseUp);
@@ -196,12 +190,11 @@ namespace WF_FileDropBoard
         private System.Windows.Forms.Timer MenuButtonProductionTimer;
         private System.Windows.Forms.PictureBox MenuPic;
         public System.Windows.Forms.Timer MenuProductionTimer;
-        private System.Windows.Forms.Timer MenuCloseTimer;
         private System.Windows.Forms.Timer DragProductionTimer;
         private System.Windows.Forms.Timer TileDragTimer;
         private System.Windows.Forms.Timer DragUpdateTimer;
-        private System.Windows.Forms.Timer InfoProductionTimer;
-        public System.Windows.Forms.Timer InfoCloseTimer;
+        private System.Windows.Forms.Timer NotiProductionTimer;
+        public System.Windows.Forms.Timer NotiCloseTimer;
         public System.Windows.Forms.PictureBox MainGRPBox;
         private System.Windows.Forms.PictureBox DisposeBox;
         /*
