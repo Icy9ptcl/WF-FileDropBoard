@@ -56,8 +56,8 @@ namespace WF_FileDropBoard {
             MB.File_AlwaysShowDate = this.File_AlwaysShowDate;
             MB.File_ShowDateMode = this.File_ShowDateMode;
             MB.File_ShowPreview = this.File_ShowPreview;
+            MB.FileListS = this.FileListS;
             MB.ExtCol = this.ExtCol;
-
         }
 
     }

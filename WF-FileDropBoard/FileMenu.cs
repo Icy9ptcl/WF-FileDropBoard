@@ -111,7 +111,7 @@ namespace WF_FileDropBoard {
         //通知の「終了する」
         private void FM_ExitButtonLabel_Clicked(object sender, EventArgs e) {
             //クリックされたので終了
-            Application.Exit();
+            MB.Exit();
         }
 
         private void FM_ExitButtonLabel_MouseEnter(object sender, EventArgs e) {
@@ -152,7 +152,7 @@ namespace WF_FileDropBoard {
                 // --------------------------------
                 //イメージ的には......
                 Label DescLB = new Label() {
-                    Text = "すべて除外しますか？",
+                    Text = "ボードを空にしますか？",
                     AutoSize = false,
                     ForeColor = Color.White,
                     BackColor = Color.Transparent,
@@ -161,7 +161,7 @@ namespace WF_FileDropBoard {
                     Dock = DockStyle.Fill
                 };
                 Label ClickLB = new Label() {
-                    Text = "除外する",
+                    Text = "ボードを空にする",
                     AutoSize = false,
                     ForeColor = Color.White,
                     BackColor = Color.Transparent,
@@ -226,12 +226,13 @@ namespace WF_FileDropBoard {
         private void FM_AllRemoveButtonLabel_Clicked(object sender, EventArgs e) {
             //「除外する」がクリックされた
             this.MB.FileListS.Clear();
+            //描画してる領域を更新
+            MB.MainGRPBox.Invalidate();
             //無理やり通知を閉じる
             MB.InfoCloseTimer.Stop();
             MB.InfoCloseTimer.Interval = 1;
             MB.InfoCloseTimer.Start();
-            //描画してる領域を更新
-            MB.MainGRPBox.Invalidate();
+
 
             //除外したことを伝える
             //コントロールの構成
@@ -240,7 +241,7 @@ namespace WF_FileDropBoard {
             // --------------------------------
             //イメージ的には......
             Label DescLB = new Label() {
-                Text = "すべて除外しました",
+                Text = "ボードを空にしました",
                 AutoSize = false,
                 ForeColor = Color.White,
                 BackColor = Color.Transparent,

@@ -133,7 +133,7 @@
             this.FM_FileOpenLabel.Name = "FM_FileOpenLabel";
             this.FM_FileOpenLabel.Size = new System.Drawing.Size(150, 30);
             this.FM_FileOpenLabel.TabIndex = 3;
-            this.FM_FileOpenLabel.Text = "開く";
+            this.FM_FileOpenLabel.Text = "ファイルを指定して追加";
             this.FM_FileOpenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.FM_FileOpenLabel.Click += new System.EventHandler(this.FM_FileOpenLabel_Click);
             this.FM_FileOpenLabel.MouseEnter += new System.EventHandler(this.FM_FileOpenLabel_MouseEnter);
@@ -149,7 +149,7 @@
             this.FM_AllRemoveLabel.Name = "FM_AllRemoveLabel";
             this.FM_AllRemoveLabel.Size = new System.Drawing.Size(150, 30);
             this.FM_AllRemoveLabel.TabIndex = 2;
-            this.FM_AllRemoveLabel.Text = "全削除";
+            this.FM_AllRemoveLabel.Text = "ボードを空にする";
             this.FM_AllRemoveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.FM_AllRemoveLabel.Click += new System.EventHandler(this.FM_AllRemoveLabel_Click);
             this.FM_AllRemoveLabel.MouseEnter += new System.EventHandler(this.FM_AllRemoveLabel_MouseEnter);

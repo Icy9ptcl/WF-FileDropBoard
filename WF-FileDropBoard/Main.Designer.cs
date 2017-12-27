@@ -175,6 +175,7 @@ namespace WF_FileDropBoard
             this.Text = "FileDropBoard";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(99)))), ((int)(((byte)(99)))));
             this.Deactivate += new System.EventHandler(this.MainBox_Deactivate);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.MainBox_Load);
             this.LocationChanged += new System.EventHandler(this.MainBox_LocationChanged);
             this.SizeChanged += new System.EventHandler(this.MainBox_SizeChanged);

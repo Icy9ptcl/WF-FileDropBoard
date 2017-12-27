@@ -1,5 +1,5 @@
 ﻿//
-//  FileDropBoard - v 1.0
+//  FileDropBoard - v 1.0.1
 //    by 2012 - 2017 Hiro-Project
 //  GitHub : https://github.com/hiro0916-ptcl/WF-FileDropBoard 
 //
@@ -25,8 +25,8 @@ namespace WF_FileDropBoard
         FileMenu FM;
 
         //バージョンと割り当て番号
-        public const string VersionS = "1.0.0";
-        public const int VerNum = 1;
+        public const string VersionS = "1.0.1";
+        public const int VerNum = 2;
 
         public string FilePath = @"%AppData%\Hiro-Project\FileDropBoard\";
         public string FileName = "Setting.json";
@@ -138,12 +138,6 @@ namespace WF_FileDropBoard
             }
         }
 
-        private void MainBox_DragLeave(object sender, EventArgs e) {
-            DragProductionMode = ProductionModeE.Leave;
-            DragProductionTimer.Start();
-            DragProductionTime = DragProductionMaxTime;
-        }
-
         private async void MainBox_DragDrop(object sender, DragEventArgs e) {
             // フォーム上のどこにファイルを置くか？
             //if (DenyDragging == false) {
@@ -171,6 +165,12 @@ namespace WF_FileDropBoard
             //} else {
             //    DenyDragging = false;
             //}
+        }
+
+        private void MainBox_DragLeave(object sender, EventArgs e) {
+            DragProductionMode = ProductionModeE.Leave;
+            DragProductionTimer.Start();
+            DragProductionTime = DragProductionMaxTime;
         }
 
         /// <summary>
@@ -726,7 +726,6 @@ namespace WF_FileDropBoard
 
         private void MainBox_Load(object sender, EventArgs e) {
             DragUpdateTimer.Interval = DragUpdateTick;
-
             LoadSettings();
         }
 
@@ -856,8 +855,115 @@ namespace WF_FileDropBoard
             }
         }
 
-    }
+        private void Main_FormClosing(object sender, FormClosingEventArgs e) {
+            this.Exit();
+        }
 
+        public void Exit() {
+            SaveConfiguration(this);
+            Application.Exit();
+        }
+
+        public void SaveConfiguration(Main MB) {
+            //コントロールの構成
+            // --------------------------------
+            // | DescLB                        |
+            // --------------------------------
+            //イメージ的には......
+            Label DescLB = new Label() {
+                Text = "保存しています...",
+                AutoSize = false,
+                ForeColor = Color.White,
+                BackColor = Color.Transparent,
+                Name = "NT_SavingDescLabel",
+                TextAlign = ContentAlignment.MiddleLeft,
+                Dock = DockStyle.Fill
+            };
+            //通知のパネルの背景色をいじる (これを白にすると見えなくて困る)
+            MB.NotiTLP.BackColor = MB.Noti_InfoColor;
+            //座標とサイズをいじる
+            MB.NotiTLP.Location = new Point(0, this.Height);
+            MB.NotiTLP.Size = new Size(Width, 30);
+            //列を初期化して追加する
+            MB.NotiTLP.ColumnStyles.Clear();
+            MB.NotiTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            //コントロールを追加する
+            MB.NotiTLP.Controls.Clear();
+            MB.NotiTLP.Controls.Add(DescLB, 0, 0);
+            //使用しているコントロールの名前を設定する
+            //これがないとリソースを開放できない
+            List<string> UseControls = new List<string> {
+                    "NT_SavingDescLabel",
+            };
+            //表示する準備
+            MB.NotiTLP.BringToFront();
+            MB.NotiTLP.Visible = true;
+            //通知として初期化する
+            MB.ShowInfo(MB.NotiTLP, UseControls, 999);
+            //保存開始
+            MB.IsSettingsOpenB = false;
+            Configuration CF = new Configuration(MB);
+            DataIO dataIO = new DataIO();
+            CF.ImportSettings();
+            string SaveMessage = "設定を保存しました";
+            //バックアップ
+            try {
+                File.Copy(MB.FilePath + MB.FileName, MB.FilePath + MB.FileName + ".old", true);
+            } catch (Exception) {
+
+            }
+
+            // try {
+            DataIO.SaveSettings(MB.FilePath + MB.FileName, CF);
+            // } catch (Exception e3) {
+            //SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
+            // }
+
+            //無理やり通知を閉じる
+            MB.InfoCloseTimer.Stop();
+            MB.InfoCloseTimer.Interval = 1;
+            MB.InfoCloseTimer.Start();
+            DescLB.Dispose();
+
+            //コントロールの構成
+            // --------------------------------
+            // | DescLB                        |
+            // --------------------------------
+            //イメージ的には......
+            Label DescLB2 = new Label() {
+                Text = SaveMessage,
+                AutoSize = false,
+                ForeColor = Color.White,
+                BackColor = Color.Transparent,
+                Name = "NT_SavedDescLabel",
+                TextAlign = ContentAlignment.MiddleLeft,
+                Dock = DockStyle.Fill
+            };
+            //通知のパネルの背景色をいじる (これを白にすると見えなくて困る)
+            MB.NotiTLP.BackColor = MB.Noti_SuccColor;
+            //座標とサイズをいじる
+            MB.NotiTLP.Location = new Point(0, this.Height);
+            MB.NotiTLP.Size = new Size(Width, 30);
+            //列を初期化して追加する
+            MB.NotiTLP.ColumnStyles.Clear();
+            MB.NotiTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            //コントロールを追加する
+            MB.NotiTLP.Controls.Clear();
+            MB.NotiTLP.Controls.Add(DescLB2, 0, 0);
+            //使用しているコントロールの名前を設定する
+            //これがないとリソースを開放できない
+            List<string> UseControls2 = new List<string> {
+                    "NT_SavedDescLabel",
+            };
+            //表示する準備
+            MB.NotiTLP.BringToFront();
+            MB.NotiTLP.Visible = true;
+            //通知として初期化する
+            MB.ShowInfo(MB.NotiTLP, UseControls2, 3);
+            System.Media.SystemSounds.Asterisk.Play();
+            DescLB.Dispose();
+        }
+    }
 }
 
 // By the way, do you like PINEAPPLES? I love it! xD
