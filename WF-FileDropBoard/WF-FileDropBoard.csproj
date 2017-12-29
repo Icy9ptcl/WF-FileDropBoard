@@ -165,6 +165,12 @@
     <Compile Include="Setting.Designer.cs">
       <DependentUpon>Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting_Part\Setting_Part_Window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting_Part\Setting_Part_Window.Designer.cs">
+      <DependentUpon>Setting_Part_Window.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting_Part\Setting_Part_Extensions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +198,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -205,6 +212,9 @@
     </Compile>
     <EmbeddedResource Include="Setting.resx">
       <DependentUpon>Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting_Part\Setting_Part_Window.resx">
+      <DependentUpon>Setting_Part_Window.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting_Part\Setting_Part_Extensions.resx">
       <DependentUpon>Setting_Part_Extensions.cs</DependentUpon>

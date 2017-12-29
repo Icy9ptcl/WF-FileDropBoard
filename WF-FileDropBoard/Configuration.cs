@@ -16,7 +16,10 @@ namespace WF_FileDropBoard {
         public Main.File_ShowDateModeE File_ShowDateMode;
         public bool File_ShowPreview;
         public Dictionary<String, Color> ExtCol;
-
+        public bool AutoHide;
+        public int AutoHideTime;
+        public bool TopWindow;
+        public Main.AutoHidePositionE AutoHidePosition;
         //public List<FileData> FileListS;
         //Dictionary<String, Color> ExtCol;
         //HashSet<int> UsedFileNumS;
@@ -46,6 +49,10 @@ namespace WF_FileDropBoard {
             File_ShowPreview = MB.File_ShowPreview;
             FileListS = MB.FileListS;
             ExtCol = MB.ExtCol;
+            AutoHide = MB.AutoHide;
+            AutoHideTime = MB.AutoHideTime;
+            TopWindow = MB.TopWindow;
+            AutoHidePosition = MB.AutoHidePosition;
         }
 
         /// <summary>
@@ -58,8 +65,11 @@ namespace WF_FileDropBoard {
             MB.File_ShowPreview = this.File_ShowPreview;
             MB.FileListS = this.FileListS;
             MB.ExtCol = this.ExtCol;
+            MB.AutoHide = this.AutoHide;
+            MB.AutoHideTime = this.AutoHideTime;
+            MB.TopWindow = this.TopWindow;
+            MB.AutoHidePosition = this.AutoHidePosition;
         }
-
     }
 
 }

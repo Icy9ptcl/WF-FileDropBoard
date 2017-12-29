@@ -1,5 +1,5 @@
 ﻿//
-//  FileDropBoard - v 1.0.1
+//  FileDropBoard - v 1.1.0
 //    by 2012 - 2017 Hiro-Project
 //  GitHub : https://github.com/hiro0916-ptcl/WF-FileDropBoard 
 //
@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -25,7 +24,7 @@ namespace WF_FileDropBoard
         FileMenu FM;
 
         //バージョンと割り当て番号
-        public const string VersionS = "1.0.1";
+        public const string VersionS = "1.1.0";
         public const int VerNum = 2;
 
         public string FilePath = @"%AppData%\Hiro-Project\FileDropBoard\";
@@ -85,9 +84,8 @@ namespace WF_FileDropBoard
         HashSet<int> UsedFileNumS = new HashSet<int>();
         private int CurrentFileNum = 0;
         private int SelectedFileNum = -1;
-        private bool AlreadyTimed = false;
         private bool MouseDragging = false;
-
+        private bool AlreadyTimed = false;
         private int InfoLoopCount = 0;
         private int InfoMaxLoopCount = 10;
         public List<string> InfoUsingControls = new List<string>();
@@ -104,19 +102,27 @@ namespace WF_FileDropBoard
 
         public bool File_AlwaysShowDate = true;
         public bool File_ShowPreview = true;
-        public enum File_ShowDateModeE {
-            None,
-            DateOnly,
-            TimeOnly,
-            DateAndTime
+        public enum File_ShowDateModeE { //タイルに表示するもの
+            None,         //何もなし
+            DateOnly,     //日付のみ
+            TimeOnly,     //時刻のみ
+            DateAndTime   //日付と時刻
         }
-
         public File_ShowDateModeE File_ShowDateMode = File_ShowDateModeE.DateAndTime;
+        //ウィンドウ系設定
+        public bool TopWindow = false;
+        public bool AutoHide = true;
+        public int AutoHideTime = 5;
+        public enum AutoHidePositionE {
+            UpperLeft,
+            UnderLeft,
+            UpperRight,
+            UnderRight
+        }
+        public AutoHidePositionE AutoHidePosition = AutoHidePositionE.UnderRight;
 
         public Main() {
             InitializeComponent();
-
-            //Console.WriteLine(FileListS[])
         }
 
         //ドラッグされた....これって入る？
@@ -201,11 +207,13 @@ namespace WF_FileDropBoard
 
 
         private void MainBox_MouseLeave(object sender, EventArgs e) {
-            //MouseDragging = false;
             DisposeBox.Visible = false;
             DragUpdateTimer.Stop();
         }
 
+        private void Main_MouseEnter(object sender, EventArgs e) {
+            AutoHideTimer.Stop();
+        }
 
         private void MainBox_Deactivate(object sender, EventArgs e) {
             MouseDragging = false;
@@ -213,6 +221,7 @@ namespace WF_FileDropBoard
             SelectedFileNum = -1;
             DragUpdateTimer.Stop();
             MainGRPBox.Invalidate();
+            AutoHideTimer.Start();
         }
 
         //
@@ -706,6 +715,8 @@ namespace WF_FileDropBoard
         private void MainBox_Load(object sender, EventArgs e) {
             DragUpdateTimer.Interval = DragUpdateTick;
             LoadSettings();
+            AutoHideTimer.Interval = AutoHideTime * 1000;
+            TopMost = TopWindow;
         }
 
         private void InfoUpdateTimer_Tick(object sender, EventArgs e) {
@@ -799,14 +810,18 @@ namespace WF_FileDropBoard
         }
 
         public bool OpenSettings() {
-            if (IsSettingsOpenB == false) {
+            if (IsSettingsOpenB == false) { // 設定が開いていないか
                 WF_FileDropBoard.Setting ST = new WF_FileDropBoard.Setting(this);
                 ST.Show();
+                //設定ウィンドウの位置決定(ずれたところに)
                 Point PT = this.Location;
-                PT.X += 16;
-                PT.Y += 16;
+                PT.X += 30;
+                PT.Y += 30;
                 ST.Location = PT;
-                IsSettingsOpenB = true;
+                this.TopMost = false; //最前面解除
+                IsSettingsOpenB = true; //設定を開いていることにする
+                ReShowIntvTimer.Stop();
+                AutoHideTimer.Stop(); //隠さないようにする
                 return true;
             } else {
                 return false;
@@ -942,6 +957,98 @@ namespace WF_FileDropBoard
             System.Media.SystemSounds.Asterisk.Play();
             DescLB.Dispose();
         }
+
+        private void AutoHideTimer_Tick(object sender, EventArgs e) {
+            if (IsSettingsOpenB == false) { //設定が開いていないなら
+                ReShowIntvTimer.Start(); //再表示判定を起動する
+                this.Visible = false; //非表示にする
+
+                // 再出現の位置を決める
+                Point Loc = this.Location;
+                RectangleF wa = Screen.PrimaryScreen.WorkingArea;
+
+                switch (AutoHidePosition) {
+                    case AutoHidePositionE.UpperLeft:
+                        Loc.X = 10;
+                        Loc.Y = 10;
+                        break;
+
+                    case AutoHidePositionE.UnderLeft:
+                        Loc.X = 10;
+                        Loc.Y = (int)wa.Height - 10;
+                        break;
+
+                    case AutoHidePositionE.UpperRight:
+                        Loc.X = (int)wa.Width - this.Width - 10;
+                        Loc.Y = 10;
+                        break;
+
+                    case AutoHidePositionE.UnderRight:
+                        Loc.X = (int)wa.Width - this.Width - 10;
+                        Loc.Y = (int)wa.Height - this.Height - 10;
+                        break;
+                }
+
+                this.Location = Loc;
+            }
+        }
+
+        private void ReShowIntvTimer_Tick(object sender, EventArgs e) {
+            //再出現の判定
+            bool IsCursorIn = false; //カーソルが判定枠に入ったか
+            Point cp = Cursor.Position;
+            RectangleF wa = Screen.PrimaryScreen.WorkingArea;
+            //無理やりだけど判定させる
+            switch (AutoHidePosition) {
+
+                case AutoHidePositionE.UpperLeft: //左上隅の場合
+                    if ( (cp.X < ( this.Width + 10)) &&
+                         (cp.Y < ( this.Height + 10))
+                       ) {
+                        IsCursorIn = true;
+                    }
+                break;
+
+                case AutoHidePositionE.UnderLeft: //左下隅の場合
+                    if (( cp.X < ( wa.Width + this.Width + 10 ) ) &&
+                         ( cp.Y > ( wa.Height - this.Height - 10 ) )
+                       ) {
+                        IsCursorIn = true;
+                    }
+                break;
+
+                case AutoHidePositionE.UpperRight: //右上隅の場合
+                    if (( cp.X > ( wa.Width - this.Width - 10 ) ) &&
+                        ( cp.Y < ( this.Height + 10 ) )
+                        ) {
+                        IsCursorIn = true;
+                    }
+                    break;
+
+                case AutoHidePositionE.UnderRight: //右下隅の場合
+                    if ( (cp.X > (wa.Width - this.Width - 10 )) &&
+                         (cp.Y > (wa.Height - this.Height - 10 ))  
+                       ) {
+                        IsCursorIn = true; 
+                    }
+                break;
+
+            }
+
+            if (IsCursorIn) { //カーソルが判定枠の中に入っていた
+                //再表示する
+                AutoHideTimer.Stop();
+                ReShowIntvTimer.Stop();
+                this.Visible = true;
+                this.TopMost = TopWindow;
+                this.Activate(); //フォーカスをもらう
+            } else {
+                //入ってなかった
+                ReShowIntvTimer.Start(); //判定まで待つ
+            }
+        }
+
+
     }
 }
 

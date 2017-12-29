@@ -1,9 +1,15 @@
-﻿using System;
+﻿//
+//  FileDropBoard - v 1.1.0
+//    by 2012 - 2017 Hiro-Project
+//  GitHub : https://github.com/hiro0916-ptcl/WF-FileDropBoard 
+//
+//  LICENSED under the GPL-3.0
+//   - See : https://www.gnu.org/licenses/gpl-3.0.en.html
+//
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
 
 namespace WF_FileDropBoard {
     public partial class Setting : Form {
@@ -20,6 +26,7 @@ namespace WF_FileDropBoard {
         //"Setting_Part_"のあとに指定される
         private List<string> SettingFormsName = new List<string> {
             "Tile",
+            "Window",
             "Extensions",
             "Info"
         };
@@ -30,9 +37,12 @@ namespace WF_FileDropBoard {
         }
 
         private void Settings_Load(object sender, EventArgs e) {
+            //設定の開いているページを 0(1ページ目) にする
             SettingPage = 0;
             Settings_ChangePage(0);
             this.Text = "設定 - FileDropBoard";
+            //フォーカスをもらう
+            //this.Focus();
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e) {
@@ -57,7 +67,7 @@ namespace WF_FileDropBoard {
                 this.SettingsTLP.Controls.Add(OpeningSettingsForm, 0, 1);
 
                 SettingPage = ToPage;
-                Settings_PageLabel.Text = (SettingPage + 1).ToString() + " / " + SettingFormsName.Count.ToString() + " ページ";
+                Settings_PageLabel.Text = ( SettingPage + 1 ).ToString() + " / " + SettingFormsName.Count.ToString() + " ページ";
 
                 Settings_PageControl_L.BackColor = UnHoverCol;
                 Settings_PageControl_R.BackColor = UnHoverCol;
@@ -67,11 +77,12 @@ namespace WF_FileDropBoard {
                 }
 
                 if (SettingPage == SettingFormsName.Count - 1) {
-                        Settings_PageControl_R.BackColor = DisabledCol;
+                    Settings_PageControl_R.BackColor = DisabledCol;
                 }
-
-
+            } else {
+                MessageBox.Show("読み込めません");
             }
+            
         }
 
         private void Settings_PageControl_L_Click(object sender, EventArgs e) {

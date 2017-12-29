@@ -133,7 +133,7 @@
             this.FM_FileOpenLabel.Name = "FM_FileOpenLabel";
             this.FM_FileOpenLabel.Size = new System.Drawing.Size(150, 30);
             this.FM_FileOpenLabel.TabIndex = 3;
-            this.FM_FileOpenLabel.Text = "ファイルを指定して追加";
+            this.FM_FileOpenLabel.Text = "ファイル追加";
             this.FM_FileOpenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.FM_FileOpenLabel.Click += new System.EventHandler(this.FM_FileOpenLabel_Click);
             this.FM_FileOpenLabel.MouseEnter += new System.EventHandler(this.FM_FileOpenLabel_MouseEnter);

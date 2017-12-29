@@ -1,5 +1,5 @@
 ﻿//
-//  FileDropBoard - v 1.0.1
+//  FileDropBoard - v 1.1.0
 //    by 2012 - 2017 Hiro-Project
 //  GitHub : https://github.com/hiro0916-ptcl/WF-FileDropBoard 
 //

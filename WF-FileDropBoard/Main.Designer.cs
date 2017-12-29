@@ -44,6 +44,8 @@ namespace WF_FileDropBoard
             this.MainGRPBox = new System.Windows.Forms.PictureBox();
             this.DisposeBox = new System.Windows.Forms.PictureBox();
             this.NotiTLP = new System.Windows.Forms.TableLayoutPanel();
+            this.AutoHideTimer = new System.Windows.Forms.Timer(this.components);
+            this.ReShowIntvTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MenuPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainGRPBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DisposeBox)).BeginInit();
@@ -150,6 +152,16 @@ namespace WF_FileDropBoard
             this.NotiTLP.TabIndex = 7;
             this.NotiTLP.Visible = false;
             // 
+            // AutoHideTimer
+            // 
+            this.AutoHideTimer.Interval = 5000;
+            this.AutoHideTimer.Tick += new System.EventHandler(this.AutoHideTimer_Tick);
+            // 
+            // ReShowIntvTimer
+            // 
+            this.ReShowIntvTimer.Interval = 200;
+            this.ReShowIntvTimer.Tick += new System.EventHandler(this.ReShowIntvTimer_Tick);
+            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -176,6 +188,7 @@ namespace WF_FileDropBoard
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainBox_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainBox_DragEnter);
             this.DragLeave += new System.EventHandler(this.MainBox_DragLeave);
+            this.MouseEnter += new System.EventHandler(this.Main_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.MainBox_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.MenuPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainGRPBox)).EndInit();
@@ -203,6 +216,8 @@ namespace WF_FileDropBoard
         */
         public Dictionary<string,object> AdditionalControls = new Dictionary<string, object>();
         public System.Windows.Forms.TableLayoutPanel NotiTLP;
+        private System.Windows.Forms.Timer AutoHideTimer;
+        private System.Windows.Forms.Timer ReShowIntvTimer;
     }
 }
 

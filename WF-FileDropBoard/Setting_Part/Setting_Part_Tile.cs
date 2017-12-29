@@ -29,11 +29,6 @@ namespace WF_FileDropBoard {
             //日時を表示するか
             if (MB.File_AlwaysShowDate) {
                 Settings_Tile_ShowLU.Checked = true;
-                switch (MB.File_ShowDateMode) {
-                    case Main.File_ShowDateModeE.DateAndTime:
-
-                    break;
-                }
             } else {
                 //そもそも表示しないつもりだった
                 Settings_Tile_SelDateMode.Enabled = false;
