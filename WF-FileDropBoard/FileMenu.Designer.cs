@@ -137,7 +137,7 @@
             this.FM_FileOpenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.FM_FileOpenLabel.Click += new System.EventHandler(this.FM_FileOpenLabel_Click);
             this.FM_FileOpenLabel.MouseEnter += new System.EventHandler(this.FM_FileOpenLabel_MouseEnter);
-            this.FM_FileOpenLabel.MouseHover += new System.EventHandler(this.FM_FileOpenLabel_MouseHover);
+            this.FM_FileOpenLabel.MouseLeave += new System.EventHandler(this.FM_FileOpenLabel_MouseLeave);
             // 
             // FM_AllRemoveLabel
             // 

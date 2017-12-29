@@ -27,7 +27,7 @@ namespace WF_FileDropBoard
         public const string VersionS = "1.1.0";
         public const int VerNum = 3;
 
-        public string FilePath = @"%AppData%\Hiro-Project\FileDropBoard\";
+        public string FilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\";
         public string FileName = "Setting.json";
 
         private int MenuColor_R = 0;
@@ -913,6 +913,7 @@ namespace WF_FileDropBoard
             DataIO.SaveSettings(MB.FilePath + MB.FileName, CF);
              } catch (Exception e3) {
             SaveMessage = String.Format("設定は保存されませんでした({0})", e3.Message);
+                MessageBox.Show(e3.Message);
              }
 
             //無理やり通知を閉じる

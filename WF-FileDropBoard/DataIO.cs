@@ -13,6 +13,7 @@ using System;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace WF_FileDropBoard {
     /// <summary>

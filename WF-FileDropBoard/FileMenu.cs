@@ -161,7 +161,7 @@ namespace WF_FileDropBoard {
                     Dock = DockStyle.Fill
                 };
                 Label ClickLB = new Label() {
-                    Text = "ボードを空にする",
+                    Text = "空にする",
                     AutoSize = false,
                     ForeColor = Color.White,
                     BackColor = Color.Transparent,
@@ -343,7 +343,7 @@ namespace WF_FileDropBoard {
             FM_FileOpenLabel.BackColor = HoverCol;
         }
 
-        private void FM_FileOpenLabel_MouseHover(object sender, EventArgs e) {
+        private void FM_FileOpenLabel_MouseLeave(object sender, EventArgs e) {
             FM_FileOpenLabel.BackColor = UnHoverCol;
         }
 
@@ -369,5 +369,7 @@ namespace WF_FileDropBoard {
 
             MB.MainGRPBox.Refresh();
         }
+
+
     }
 }
