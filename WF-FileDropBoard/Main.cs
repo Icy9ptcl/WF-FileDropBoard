@@ -221,7 +221,9 @@ namespace WF_FileDropBoard
             SelectedFileNum = -1;
             DragUpdateTimer.Stop();
             MainGRPBox.Invalidate();
-            AutoHideTimer.Start();
+            if (AutoHide) { //自動で隠す
+                AutoHideTimer.Start();
+            }
         }
 
         //
