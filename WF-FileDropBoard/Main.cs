@@ -1,5 +1,5 @@
 ﻿//
-//  FileDropBoard - v 1.1.0 @ Stable
+//  FileDropBoard - v 1.1.1 @ Stable
 //    by 2012 - 2017 Hiro-Project
 //  GitHub : https://github.com/hiro0916-ptcl/WF-FileDropBoard 
 //
@@ -24,7 +24,7 @@ namespace WF_FileDropBoard
         FileMenu FM;
 
         //バージョンと割り当て番号
-        public const string VersionS = "1.1.0";
+        public const string VersionS = "1.1.1";
         public const int VerNum = 3;
 
         public string FilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\";
