@@ -25,7 +25,7 @@ namespace WF_FileDropBoard
 
         //バージョンと割り当て番号
         public const string VersionS = "1.1.0";
-        public const int VerNum = 2;
+        public const int VerNum = 3;
 
         public string FilePath = @"%AppData%\Hiro-Project\FileDropBoard\";
         public string FileName = "Setting.json";
@@ -111,7 +111,7 @@ namespace WF_FileDropBoard
         public File_ShowDateModeE File_ShowDateMode = File_ShowDateModeE.DateAndTime;
         //ウィンドウ系設定
         public bool TopWindow = false;
-        public bool AutoHide = true;
+        public bool AutoHide = false;
         public int AutoHideTime = 5;
         public enum AutoHidePositionE {
             UpperLeft,
