@@ -962,7 +962,7 @@ namespace WF_FileDropBoard
         }
 
         private void AutoHideTimer_Tick(object sender, EventArgs e) {
-            if (IsSettingsOpenB == false) { //設定が開いていないなら
+            if (Focused == true && IsSettingsOpenB == false) { //設定が開いていないなら かつ フォーカスがあるなら
                 ReShowIntvTimer.Start(); //再表示判定を起動する
                 this.Visible = false; //非表示にする
 
@@ -978,7 +978,7 @@ namespace WF_FileDropBoard
 
                     case AutoHidePositionE.UnderLeft:
                         Loc.X = 10;
-                        Loc.Y = (int)wa.Height - 10;
+                        Loc.Y = (int)wa.Height - this.Height - 10;
                         break;
 
                     case AutoHidePositionE.UpperRight:
@@ -1013,7 +1013,7 @@ namespace WF_FileDropBoard
                 break;
 
                 case AutoHidePositionE.UnderLeft: //左下隅の場合
-                    if (( cp.X < ( wa.Width + this.Width + 10 ) ) &&
+                    if (( cp.X < ( this.Width + 10 ) ) &&
                          ( cp.Y > ( wa.Height - this.Height - 10 ) )
                        ) {
                         IsCursorIn = true;
